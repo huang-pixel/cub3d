@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:47:53 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/01 15:00:51 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/01 22:22:22 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,6 @@ int	main(int ac, char **av)
 {
 	if (!check_args(ac, av))
 		return (1);
+	// init game struct
+	// parse map file
 }
