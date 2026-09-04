@@ -6,9 +6,11 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:47:53 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/01 22:22:22 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/04 17:08:40 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "includes/cub3d.h"
 
 /*
  *
@@ -39,8 +41,10 @@ static int	check_args(int ac, char **av)
 
 int	main(int ac, char **av)
 {
+    t_game	game;
 	if (!check_args(ac, av))
 		return (1);
 	// init game struct
+	init_game(&game);
 	// parse map file
 }
