@@ -6,16 +6,13 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/04 17:00:32 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/06 16:12:02 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-<<<<<<< HEAD
-#include "../libft/libft.h"
-=======
 #include "libft.h"
 #include "mlx.h"
 #include <math.h>
