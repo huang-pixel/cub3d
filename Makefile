@@ -1,47 +1,46 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/09/05 23:51:45 by hhuang2           #+#    #+#              #
-#    Updated: 2026/09/06 00:31:17 by hhuang2          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME=cub3D # Name of the final executable
+CC=cc # C compiler
 
-NAME = cub3D
-SRC = main.c init.c free.c parse_map.c parse_texture.c parsing.c 
-OBJ = $(SRC:.c=.o)
-LIBFT_PATH = libft
-LIBFT = $(LIBFT_PATH)/libft.a
+# Compiler options and header directories
+CFLAGS=-Wall -Wextra -Werror -g -Iincludes -std=gnu99 -Iminilibx-linux -Ilibft -MMD -MP
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-INCLUDE = -I. -I$(LIBFT_PATH)
+# Source files for the project
+MANDATORY_SRC=src/main.c src/init.c src/parser.c src/free.c
 
-all: $(NAME)
+ # Convert .c files into .o files
+MANDATORY_OBJS=$(MANDATORY_SRC:.c=.o)
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+-include $(MANDATORY_OBJS:.o=.d)
 
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_PATH)
-		
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+# Path to Libft library
+LIBFT=libft/libft.a
 
-clean:
-	$(MAKE) -C $(LIBFT_PATH) clean
-	rm -f $(OBJ)
-	
-fclean:
-	+(MAKE) -C $(LIBFT_PATH) fclean
-	rm -f $(OBJ)
+# Path to MiniLibX library
+MLX=minilibx-linux/libmlx.a
+
+all: $(NAME) # Default target: build cub3D
+
+%.o: %.c  # Rule: create a .o file from a .c file
+	$(CC) $(CFLAGS) -c $< -o $@  # Compile the source file into an object file
+
+$(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX) # cub3D needs our .o + Libft + MiniLibX
+	$(CC) $(CFLAGS) $(MANDATORY_OBJS) $(LIBFT) $(MLX) -o $(NAME)
+
+$(LIBFT): # If libft.a doesn't exist, build Libft
+	make -C libft # Run Libft's Makefile, C refers to change dir
+
+$(MLX):
+	make -C minilibx-linux
+
+clean:     # Remove compiled object files
+	rm -f $(MANDATORY_OBJS) $(MANDATORY_OBJS:.o=.d)
+	make -C libft clean
+	make -C minilibx-linux clean
+
+fclean: clean
 	rm -f $(NAME)
+	make -C libft fclean
 
-re:
-	+(MAKE) fclean
-	+(NAME) all
+re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re  # These are commands, not real files
