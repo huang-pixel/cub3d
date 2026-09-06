@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/04 17:00:32 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/05 16:46:27 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,8 @@ typedef struct s_game
 }   t_game;
 
 void    init_game(t_game *game);
+int	    check_tex_file(char *line);
+int	    is_map_line(char *line);
+void	free_tab(char **tab);
 
 #endif
