@@ -6,14 +6,14 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/06 16:12:02 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/06 17:44:34 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "libft.h"
+#include "../libft/libft.h"
 #include "mlx.h"
 #include <math.h>
 
@@ -153,7 +153,6 @@ typedef struct s_game
 	t_map		map;
 }	t_game;
 
-#endif
 
 void    init_game(t_game *game);
 void	free_game(t_game *game);
