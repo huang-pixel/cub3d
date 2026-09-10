@@ -52,3 +52,19 @@ parse_file()
 ├── validate map
 │
 └── success
+
+-----------------------------------------------
+
+parsing subtlity:
+
+parse_file()
+    ↓
+store configuration
+    ↓
+store map
+    ↓
+validate configuration
+    ↓
+validate map
+    ↓
+start game

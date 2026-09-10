@@ -6,6 +6,7 @@ CFLAGS=-Wall -Wextra -Werror -g -Iincludes -std=gnu99 -Iminilibx-linux -Ilibft -
 
 # Source files for the project
 MANDATORY_SRC=src/main.c src/init.c src/parser.c src/free.c
+			  src/parser_utils1.c
 
  # Convert .c files into .o files
 MANDATORY_OBJS=$(MANDATORY_SRC:.c=.o)

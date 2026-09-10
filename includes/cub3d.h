@@ -13,17 +13,14 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include "mlx.h"
 #include <math.h>
-
 
 # define KEY_W   119
 # define KEY_S	115
 # define KEY_A	97
 # define KEY_D	100
-
-
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 
@@ -32,6 +29,7 @@
 # define ERR_EXT "Error\n Invalid map file extension\n"
 # define ERR_READ_MAP "Error\n Can't read map file\n"
 # define ERR_MAP "Error\n Invalid map file\n"
+# define ERR_INVALID_MAP_LINE "Error\n Invalid line in the map file\n"
 # define ERR_DUP_IDENTIFIER "Error\n Duplicate identifier in the map\n"
 # define ERR_MISS_IDENTIFIER "Error\n Missing identifier in the map\n"
 # define ERR_FLOOR "Error\n Invalid floor color\n"
@@ -40,6 +38,15 @@
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
+
+typedef enum e_line_type
+{
+	INVALID_LINE = -1,
+	EMPTY_LINE,
+	TEXTURE_LINE,
+	COLOR_LINE,
+	MAP_LINE,
+} t_line_type;
 
 /*
  *
@@ -69,24 +76,14 @@ typedef struct s_mapconfig
  * Map struct:
  * - width: numbers of columns in the map
  * - height: numbers of rows in the map
- * - no_path: path to north texture 
- * - so_path: path to south texture
- * - we_path: path to west texture
- * - ea_path: path to east texture
  */
 typedef struct s_map
 {
-    int		width;
-	int		height;
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
 	t_mapconfig	map_config;
 	char		**map;
 	int			map_width;
 	int			map_height;
-}   t_map;
+}	t_map;
 
 /*
  *
@@ -156,6 +153,8 @@ typedef struct s_game
 
 void    init_game(t_game *game);
 void	free_game(t_game *game);
-int	parse_file(char *file, t_game *game);
+int		parse_file(char *file, t_game *game);
+
+int		skip_spaces(char *line);
 
 #endif
