@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vino <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 04:34:01 by vino              #+#    #+#             */
-/*   Updated: 2026/09/06 04:34:07 by vino             ###   ########.fr       */
+/*   Updated: 2026/09/11 01:16:52 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,19 @@ void	free_game(t_game *game)
 			free(game->tex[i].filepath);
 		i++;
 	}
+}
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	if (!tab)
+		return ;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

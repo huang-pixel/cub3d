@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/06 17:44:34 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/11 01:18:28 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@
 # define ERR_FLOOR "Error\n Invalid floor color\n"
 # define ERR_CEILING "Error\n Invalid ceiling color\n"
 # define ERR_TEXTURE "Error\n Invalid texture file\n"
+# define ERR_TEXTURE_LINE "Error\n Invalid texture line\n"
+# define ERR_TEXTURE_READ "Error\n Cannot open texture file\n"
+# define ERR_TEXTURE_EXT "Error\n Invalid texture extension\n"
+# define ERR_DUP_TEXTURE "Error\n Duplication texture\n"
+
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
@@ -150,11 +155,24 @@ typedef struct s_game
 	t_map		map;
 }	t_game;
 
-
+/* Initilization game */
 void    init_game(t_game *game);
-void	free_game(t_game *game);
+
 int		parse_file(char *file, t_game *game);
 
+/* Clean up */
+void	free_tab(char **tab);
+void	free_game(t_game *game);
+
+/* Parsing Texture */
+int	is_valid_tex(char **tex);
+int	save_tex_path(char **tex, t_game *game);
+int	process_texture(char *line, t_game *game);
+
+/* Parsing utils */
 int		skip_spaces(char *line);
+int	    count_size(char	**tex);
+void	delete_newline(char *line);
+void	replace_spaces(char	*line);
 
 #endif
