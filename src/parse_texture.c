@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 00:14:53 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/11 01:15:32 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/13 21:48:21 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,27 @@ int	save_tex_path(char **tex, t_game *game)
 {
 	if (!ft_strncmp(tex[0], "NO", 3))
 	{
-        if (game->map.no_path != NULL)
+        if (game->map.map_config.no_txture != NULL)
             return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.no_path = ft_strdup(tex[1]);
+        game->map.map_config.no_txture = ft_strdup(tex[1]);
     }
 	else if (!ft_strncmp(tex[0], "SO", 3))
 	{
-        if (game->map.so_path != NULL)
+        if (game->map.map_config.so_txture != NULL)
             return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.so_path = ft_strdup(tex[1]);
+        game->map.map_config.so_txture = ft_strdup(tex[1]);
     }
 	else if (!ft_strncmp(tex[0], "WE", 3))
 	{
-        if (game->map.we_path != NULL)
+        if (game->map.map_config.we_txture != NULL)
             return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.we_path = ft_strdup(tex[1]);
+        game->map.map_config.we_txture = ft_strdup(tex[1]);
     }
 	else if (!ft_strncmp(tex[0], "EA", 3))
 	{
-        if (game->map.ea_path != NULL)
+        if (game->map.map_config.ea_txture != NULL)
             return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.ea_path = ft_strdup(tex[1]);
+        game->map.map_config.ea_txture = ft_strdup(tex[1]);
     }
     else
         return (0);
@@ -98,7 +98,6 @@ int	process_texture(char *line, t_game *game)
 	char	**tex;
 	int		ret;
 
-	delete_newline(line);
 	replace_spaces(line);
 	tex = ft_split(line, ' ');
     if (!tex)

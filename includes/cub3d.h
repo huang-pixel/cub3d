@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/11 01:18:28 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/13 22:42:57 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 # define ERR_MISS_IDENTIFIER "Error\n Missing identifier in the map\n"
 # define ERR_FLOOR "Error\n Invalid floor color\n"
 # define ERR_CEILING "Error\n Invalid ceiling color\n"
+# define ERR_COL_LINE "Error\n Invalid color line\n"
+# define ERR_COL_FORMAT "Error\n Color must have 1 indentifier and 3 values\n"
+# define ERR_COL_VAL "Error\n Invalid RGB value\n"
+# define ERR_COL_DUP "Error\n Duplication color\n"
 # define ERR_TEXTURE "Error\n Invalid texture file\n"
 # define ERR_TEXTURE_LINE "Error\n Invalid texture line\n"
 # define ERR_TEXTURE_READ "Error\n Cannot open texture file\n"
@@ -114,6 +118,13 @@ typedef struct s_vector
 	float	y;
 }	t_vector;
 
+typedef struct s_color
+{
+    int r;
+    int g;
+    int b;
+}       t_color;
+
 /*
  *
  * Player struct includes:
@@ -153,6 +164,8 @@ typedef struct s_game
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
+    t_color     floor;
+    t_color     ceiling;
 }	t_game;
 
 /* Initilization game */
@@ -168,6 +181,13 @@ void	free_game(t_game *game);
 int	is_valid_tex(char **tex);
 int	save_tex_path(char **tex, t_game *game);
 int	process_texture(char *line, t_game *game);
+
+/* Parsing Color */
+int is_valid_color_line(char **tab);
+int	is_valid_value(char *value);
+int is_all_valid_rgb(char *color_str, t_color *color);
+int	set_rgb_value(char **color_line, t_color *color, t_game *game);
+int process_color(char *line, t_color *color, t_game *game);
 
 /* Parsing utils */
 int		skip_spaces(char *line);
