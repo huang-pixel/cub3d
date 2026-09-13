@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 21:52:43 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/13 22:43:09 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/13 23:06:22 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,17 @@ int is_all_valid_rgb(char *color_str, t_color *color)
 int	set_rgb_value(char **color_line, t_color *color, t_game *game)
 {
 	if (!ft_strncmp(color_line[0], "F", 2))
-        game->map.map_config.ceiling_color = (color->r << 16 | color->g << 8 | color->b);
-	else if (!ft_strncmp(color_line[0], "C", 2))
+    {
+        if (game->map.map_config.floor_color != -1)
+			return(ft_putstr_fd(ERR_COL_DUP, 2), 0);
 		game->map.map_config.ceiling_color = (color->r << 16 | color->g << 8 | color->b);
+    }
+    else if (!ft_strncmp(color_line[0], "C", 2))
+    {
+        if (game->map.map_config.ceiling_color != -1)
+			return(ft_putstr_fd(ERR_COL_DUP, 2), 0);
+		game->map.map_config.ceiling_color = (color->r << 16 | color->g << 8 | color->b);
+    }
 	else
 		return (0);
 	return (1);
@@ -93,12 +101,6 @@ int process_color(char *line, t_color *color, t_game *game)
         return (free_tab(color_line), 0);
 	if (!is_all_valid_rgb(color_line[1], color))
         return (free_tab(color_line), 0);
-    if (color->r != -1)
-    {
-        ft_putstr_fd(ERR_COL_DUP, 2);
-        free_tab(color_line);
-        return (0);
-    }
 	ret = set_rgb_value(color_line, color, game);
 	free_tab(color_line);
     return (ret);

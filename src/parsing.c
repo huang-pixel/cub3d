@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 23:07:31 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/13 22:39:31 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/13 23:08:12 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ static int	line_type(char *line)
 
 static int proceed_line(int type, char *line, t_game *game, int *map_started)
 {
-    t_color color_tmp;
-    
-    color_tmp.r = -1;
 	if (*map_started)
 	{
 		if (type != MAP_LINE)
@@ -89,7 +86,7 @@ static int proceed_line(int type, char *line, t_game *game, int *map_started)
 		}
 		if (type == TEXTURE_LINE && process_texture(line, game))
 			return (1);
-		if (type == COLOR_LINE && process_color(line, &color_tmp, game))
+		if (type == COLOR_LINE && process_color(line, &game->color, game))
 			return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/13 22:42:57 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/13 23:07:30 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,7 @@ typedef struct s_game
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
-    t_color     floor;
-    t_color     ceiling;
+    t_color     color;
 }	t_game;
 
 /* Initilization game */
