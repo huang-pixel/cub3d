@@ -32,6 +32,8 @@
 # define ERR_INVALID_MAP_LINE "Error\n Invalid line in the map file\n"
 # define ERR_DUP_IDENTIFIER "Error\n Duplicate identifier in the map\n"
 # define ERR_MISS_IDENTIFIER "Error\n Missing identifier in the map\n"
+# define ERR_MISSING_TEXTURE "Error\n Missing texture configuration\n"
+# define ERR_MISSING_COLOR "Error\n Missing color configuration\n"
 # define ERR_FLOOR "Error\n Invalid floor color\n"
 # define ERR_CEILING "Error\n Invalid ceiling color\n"
 # define ERR_COL_LINE "Error\n Invalid color line\n"

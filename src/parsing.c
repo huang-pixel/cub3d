@@ -42,30 +42,46 @@ static int	line_type(char *line)
 	return (INVALID_LINE);
 }
 
-// /*
-//  *
-//  * Check whether the read line is a map line
-//  * 
-//  */
+/* 
+ * 
+ * Check if all required configuration elements are present. 
+ * 
+ */ 
 
-// static int	is_map_line(char *line)
-// {
-// 	int	i;
+ static int	check_config(t_game *game)
+ {
+	 	if (!game->map.map_config.no_txture ||
+ 		!game->map.map_config.so_txture ||
+ 		!game->map.map_config.we_txture ||
+ 		!game->map.map_config.ea_txture)
+ 	{
+ 		ft_putstr_fd(ERR_MISSING_TEXTURE, 2);
+ 		return (1);
+ 	}
+ 	if (game->map.map_config.floor_color == -1 || game->map.map_config.ceiling_color == -1)
+ 	{
+ 		ft_putstr_fd(ERR_MISSING_COLOR, 2);
+ 		return (1);
+ 	}
+ 	return (0);
+ }
 
-// 	i = 0;
-// 	while (line[i] && line[i] != ' ')
-// 		i++;
-// 	if (!line[i])
-// 		return (0);
-// 	if (line[i] == '1' || line[i] == '0')
-// 		return (1);
-// 	return (0);
-// }
+ /* 
+ * 
+ * Check if the map is valid. If the map is empty or has 0 height, 
+ * print an error message and return 1, else return 0.
+ * 
+ */ 
 
-// static int process_texture(char *line, t_game *game)
-// {
-// 	if ()
-// }
+ static int check_map(t_game *game)
+ {
+ 	if (!game->map.map || game->map.map_height == 0)
+ 	{
+ 		ft_putstr_fd(ERR_INVALID_MAP_LINE, 2);
+ 		return (1);
+ 	}
+ 	return (0);
+ }
 
 static int proceed_line(int type, char *line, t_game *game, int *map_started)
 {
@@ -123,6 +139,9 @@ int	parse_file(char *file, t_game *game)
 		}
 		if (proceed_line(type, line, game, &map_started))
 			return (free(line), close(fd), 1);
+		free(line);
 	}
+	if (check_config(game) || check_map(game))
+		return (close(fd), 1);
 	return (close(fd), 0);
 }

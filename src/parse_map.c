@@ -12,4 +12,7 @@
 
 #include "cub3d.h"
 
-
+int process_map(char *line, t_game *g)
+{
+    
+}
