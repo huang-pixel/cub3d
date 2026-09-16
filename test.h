@@ -15,7 +15,16 @@ typedef struct s_map
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
+    int     floor_color;
+    int     ceiling_color;
 }			t_map;
+
+typedef struct s_color
+{
+    int r;
+    int g;
+    int b;
+}       t_color;
 
 typedef struct s_game
 {
@@ -23,13 +32,25 @@ typedef struct s_game
 	t_texture	tex[4];
 }				t_game;
 
+void    init_game(t_game *game);
+
 void	delete_newline(char *line);
+int     ft_isspace(int c);
 void	replace_spaces(char	*line);
 void	free_tab(char **tab);
-int		count_size(char	**tex);
+int		count_size(char	**tab);
+
 int		is_valid_tex(char **tex);
 int		save_tex_path(char **tex, t_game *game);
 int		parse_texture(char *line, t_game *game);
+
+int     is_valid_color_line(char **tab);
+int	    is_valid_value(char *value);
+int     is_all_valid_rgb(char *color_str, t_color *color);
+int	    set_rgb_value(char **color_line, t_color *color, t_game *game);
+int     parse_color(char *line, t_color *color, t_game *game);
+
+int     parse_line(char *line, t_game *game);
 int		parse_file(int fd, t_game *game);
 
 #endif

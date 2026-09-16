@@ -1,30 +1,10 @@
 #include "test.h"
 
-int	parse_file(int fd, t_game *game)
+void    init_game(t_game *game)
 {
-	char	*line;
-	int		ret;
-
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		if ((!ft_strncmp(line, "NO", 2)) || (!ft_strncmp(line, "SO", 2))
-			|| (!ft_strncmp(line, "WE", 2)) || (!ft_strncmp(line, "EA", 2)))
-		{
-			ret = parse_texture(line, game);
-			free(line);
-		}
-		// check if there's a color line: 
-		// - the first char should be 'F' or 'C'
-		// - the second char should be a space
-		// - parsing the color
-		// if (line[1] == 'F' || line[1] == 'C')
-		//{
-
-		//}
-		line = get_next_line(fd);
-	}
-	return (ret);
+    ft_bzero(game, sizeof(game));
+    game->map.floor_color = -1;
+    game->map.ceiling_color = -1;
 }
 
 int	main(int ac, char **av)
@@ -44,10 +24,11 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Error\n Cannot open map file\n", 2);
 		return (1);
 	}
-	ft_bzero(&game, sizeof(game));
+    init_game(&game);
 	ret = parse_file(fd, &game);
 	if (!ret)
 		return (1);
 	printf("%s\n", game.map.no_path);
+    printf("color = 0x%X\n", game.map.floor_color);
 	return (0);
 }

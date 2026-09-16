@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/08 17:28:39 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/08 17:33:02 by hhuang2          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "test.h"
 
 void	free_tab(char **tab)
@@ -45,7 +33,18 @@ void	delete_newline(char *line)
 
 /*
  *
- * Find tab or newline character in each line and replace them by ' '
+ * Check whether a character is a space
+ * 
+ */
+int ft_isspace(int c)
+{
+    if (c == 32 || (c >= 9 && c <= 13))
+        return (1);
+    return (0);
+}
+/*
+ *
+ * Find tab in each line and replace them by ' '
  * 
  */
 void	replace_spaces(char	*line)
@@ -65,7 +64,7 @@ void	replace_spaces(char	*line)
 
 /*
  *
- * Count texture size, except null and empty element
+ * Count array size, except null and empty element
  * 
  */
 
