@@ -29,7 +29,7 @@
 # define ERR_EXT "Error\n Invalid map file extension\n"
 # define ERR_READ_MAP "Error\n Can't read map file\n"
 # define ERR_MAP "Error\n Invalid map file\n"
-# define ERR_INVALID_MAP_LINE "Error\n Invalid line in the map file\n"
+# define ERR_MAP_LINE "Error\n Invalid line in the map file\n"
 # define ERR_DUP_IDENTIFIER "Error\n Duplicate identifier in the map\n"
 # define ERR_MISS_IDENTIFIER "Error\n Missing identifier in the map\n"
 # define ERR_MISSING_TEXTURE "Error\n Missing texture configuration\n"
@@ -91,7 +91,7 @@ typedef struct s_mapconfig
 typedef struct s_map
 {
 	t_mapconfig	map_config;
-	char		**map;
+	char		**map_data;
 	int			map_width;
 	int			map_height;
 }	t_map;
@@ -188,7 +188,8 @@ int is_valid_color_line(char **tab);
 int	is_valid_value(char *value);
 int is_all_valid_rgb(char *color_str, t_color *color);
 int	set_rgb_value(char **color_line, t_color *color, t_game *game);
-int process_color(char *line, t_color *color, t_game *game);
+int	process_color(char *line, t_color *color, t_game *game);
+int	process_map(char *line, t_game *g);
 
 /* Parsing utils */
 int		skip_spaces(char *line);

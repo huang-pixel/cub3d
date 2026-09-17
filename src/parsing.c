@@ -77,7 +77,7 @@ static int	line_type(char *line)
  {
  	if (!game->map.map || game->map.map_height == 0)
  	{
- 		ft_putstr_fd(ERR_INVALID_MAP_LINE, 2);
+ 		ft_putstr_fd(ERR_MAP_LINE, 2);
  		return (1);
  	}
  	return (0);
@@ -88,7 +88,7 @@ static int proceed_line(int type, char *line, t_game *game, int *map_started)
 	if (*map_started)
 	{
 		if (type != MAP_LINE)
-			return (ft_putstr_fd(ERR_INVALID_MAP_LINE, 2), 1);
+			return (ft_putstr_fd(ERR_MAP_LINE, 2), 1);
 		if (process_map(line, game))
 			return (1);
 	}
@@ -134,7 +134,7 @@ int	parse_file(char *file, t_game *game)
 		type = line_type(line);
 		if (type == INVALID_LINE)
 		{
-			ft_putstr_fd(ERR_INVALID_MAP_LINE, 2);
+			ft_putstr_fd(ERR_MAP_LINE, 2);
 			return (free(line), close(fd), 1);
 		}
 		if (proceed_line(type, line, game, &map_started))
