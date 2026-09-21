@@ -11,6 +11,9 @@ int	parse_line(char *line, t_game *game)
 	// skip the blank space
 	while (ft_isspace(line[i]))
 		i++;
+    // suppose line is :"", "    ", "\t\t", "   \t  ", these are all valid empty lines, return OK
+    if (line[i] == '\0')
+        return (1);
 	// check whether there's a texture line
 	if (!ft_strncmp(&line[i], "NO", 2) || !ft_strncmp(&line[i], "SO", 2)
 		|| !ft_strncmp(&line[i], "WE", 2) || !ft_strncmp(&line[i], "EA", 2))
@@ -29,6 +32,8 @@ int	parse_file(int fd, t_game *game)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+        //if (is_map_line(line))
+            //return (parse_map(line));
 		ret = parse_line(line, game);
 		free(line);
 		line = get_next_line(fd);
