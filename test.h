@@ -56,6 +56,8 @@ int     parse_color(char *line, t_color *color, t_game *game);
 
 /* Map parsing */
 int     is_map_line(char *line);
+int 	check_map_config(t_game *game);
+int 	read_map_lines(t_list **map_lst, int fd);
 
 int     parse_line(char *line, t_game *game);
 int		parse_file(int fd, t_game *game);

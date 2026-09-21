@@ -26,14 +26,26 @@ int	parse_line(char *line, t_game *game)
 
 int	parse_file(int fd, t_game *game)
 {
-	char *line;
-	int ret;
+	char 	*line;
+	int 	ret;
+	t_list	*map_head;
 
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-        //if (is_map_line(line))
-            //return (parse_map(line));
+        if (is_map_line(line))
+		{
+			if (check_map_config(game))
+			{
+				delete_newline(line);
+				map_head = ft_lstnew(ft_strdup(line));
+				// if malloc fails, map_head is NULL
+				if (!map_head)
+					return (0);
+				if (!read_map_lines(&map_head, fd))
+					return (0);
+			}
+		}
 		ret = parse_line(line, game);
 		free(line);
 		line = get_next_line(fd);
