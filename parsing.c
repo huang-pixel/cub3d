@@ -44,6 +44,8 @@ int	parse_file(int fd, t_game *game)
 					return (0);
 				if (!read_map_lines(&map_head, fd))
 					return (0);
+                // convert map line linked list into a 2D array
+                // convert_to_tab(t_list *map_head, t_game *game)
 			}
 		}
 		ret = parse_line(line, game);
