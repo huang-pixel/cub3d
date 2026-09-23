@@ -68,3 +68,79 @@ validate configuration
 validate map
     ↓
 start game
+---------------------------------------------------
+parse_map():
+
+.cub file on disk
+       ↓
+   get_next_line()
+       ↓
+     line
+       ↓
+   ft_strdup()
+       ↓
+   map_line
+       ↓
+    new_map
+       ↓
+ g->map.map
+_________________________________________________________
+.cub file
+   ↓
+read lines
+   ↓
+process_map()
+   ↓
+store all rows
+   ↓
+EOF
+   ↓
+check_config()
+   ↓
+check_map_exists()
+   ↓
+is_valid_map()
+   ↓
+check_player()
+
+-------------------------------------------------------
+The idea
+
+For every walkable cell:
+
+        (row - 1, col)
+              ↑
+              |
+(row, col - 1) ←  CELL  → (row, col + 1)
+              |
+              ↓
+        (row + 1, col)
+
+For example, if we have:
+
+111111
+100001
+10N001
+100001
+111111
+
+For N, we check:
+
+above  → exists?
+below  → exists?
+left   → exists?
+right  → exists?
+--------------------------------------------------------
+final map validation function():
+
+is_valid_map()
+│
+├── check_player()
+│
+└── check_map_closure()
+      │
+      └── check_walkable_cells()
+            │
+            └── check_neighbors()
+                  ├── is_inside_map()
+                  └── is_safe_cell()

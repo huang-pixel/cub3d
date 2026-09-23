@@ -45,6 +45,8 @@
 # define ERR_TEXTURE_READ "Error\n Cannot open texture file\n"
 # define ERR_TEXTURE_EXT "Error\n Invalid texture extension\n"
 # define ERR_DUP_TEXTURE "Error\n Duplication texture\n"
+# define ERR_PLAYER "Error\n Something wrong with the player!\n"
+# define ERR_MAP_CLOSE "Error\n Something wrong with the map!\n"
 
 
 //Memory related error messages

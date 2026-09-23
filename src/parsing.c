@@ -56,14 +56,14 @@ static int	line_type(char *line)
  		!game->map.map_config.ea_txture)
  	{
  		ft_putstr_fd(ERR_MISSING_TEXTURE, 2);
- 		return (1);
+ 		return (0);
  	}
  	if (game->map.map_config.floor_color == -1 || game->map.map_config.ceiling_color == -1)
  	{
  		ft_putstr_fd(ERR_MISSING_COLOR, 2);
- 		return (1);
+ 		return (0);
  	}
- 	return (0);
+ 	return (1);
  }
 
  /* 
@@ -73,14 +73,14 @@ static int	line_type(char *line)
  * 
  */ 
 
- static int check_map(t_game *game)
+ static int check_map_exists(t_game *game)
  {
- 	if (!game->map.map || game->map.map_height == 0)
+ 	if (!game->map.map_data || game->map.map_height == 0)
  	{
  		ft_putstr_fd(ERR_MAP_LINE, 2);
- 		return (1);
+ 		return (0);
  	}
- 	return (0);
+ 	return (1);
  }
 
 static int proceed_line(int type, char *line, t_game *game, int *map_started)
@@ -90,7 +90,7 @@ static int proceed_line(int type, char *line, t_game *game, int *map_started)
 		if (type != MAP_LINE)
 			return (ft_putstr_fd(ERR_MAP_LINE, 2), 1);
 		if (process_map(line, game))
-			return (1);
+			return (0);
 	}
 	else
 	{
@@ -98,14 +98,14 @@ static int proceed_line(int type, char *line, t_game *game, int *map_started)
 		{
 			*map_started = 1;
 			if (process_map(line, game))
-				return (1);
+				return (0);
 		}
 		if (type == TEXTURE_LINE && process_texture(line, game))
-			return (1);
+			return (0);
 		if (type == COLOR_LINE && process_color(line, &game->color, game))
-			return (1);
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 /*
@@ -141,7 +141,7 @@ int	parse_file(char *file, t_game *game)
 			return (free(line), close(fd), 1);
 		free(line);
 	}
-	if (check_config(game) || check_map(game))
+	if (!check_config(game) || !check_map_exists(game) || !is_valid_map(game))
 		return (close(fd), 1);
 	return (close(fd), 0);
 }
