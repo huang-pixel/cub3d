@@ -1,47 +1,45 @@
-NAME=cub3D # Name of the final executable
-CC=cc # C compiler
+NAME = cub3D 
+CC = cc 
 
-# Compiler options and header directories
-CFLAGS=-Wall -Wextra -Werror -g -Iincludes -std=gnu99 -Iminilibx-linux -Ilibft -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -g -Iincludes -std=gnu99 -Iminilibx-linux/minilibx-linux
 
-# Source files for the project
-MANDATORY_SRC=src/main.c src/init.c src/parser.c src/free.c
-			  src/parser_utils1.c
 
- # Convert .c files into .o files
-MANDATORY_OBJS=$(MANDATORY_SRC:.c=.o)
+MANDATORY_SRC = src/main.c src/init.c src/free.c \
+			  src/parser_utils1.c src/parsing.c src/parse_color.c \
+			  src/parse_texture.c src/parse_map.c \
 
--include $(MANDATORY_OBJS:.o=.d)
+INCLUDE = includes/cub3d.h libft/libft.h
 
-# Path to Libft library
-LIBFT=libft/libft.a
+MANDATORY_OBJS = $(MANDATORY_SRC:.c=.o)
 
-# Path to MiniLibX library
-MLX=minilibx-linux/libmlx.a
+LIBFT = ../libft/libft.a
 
-all: $(NAME) # Default target: build cub3D
+MLX = ../minilibx-linux/libmlx.a
 
-%.o: %.c  # Rule: create a .o file from a .c file
-	$(CC) $(CFLAGS) -c $< -o $@  # Compile the source file into an object file
-
-$(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX) # cub3D needs our .o + Libft + MiniLibX
-	$(CC) $(CFLAGS) $(MANDATORY_OBJS) $(LIBFT) $(MLX) -o $(NAME)
-
-$(LIBFT): # If libft.a doesn't exist, build Libft
-	make -C libft # Run Libft's Makefile, C refers to change dir
+all: $(LIBFT) $(MLX) $(NAME) 
 
 $(MLX):
-	make -C minilibx-linux
+	$(MAKE) -C minilibx-linux
 
-clean:     # Remove compiled object files
-	rm -f $(MANDATORY_OBJS) $(MANDATORY_OBJS:.o=.d)
-	make -C libft clean
-	make -C minilibx-linux clean
+$(LIBFT):
+	$(MAKE) -C libft 
+
+$(NAME): $(MANDATORY_OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(MANDATORY_OBJS) \
+		$(LIBFT) $(MLX) -lXext -lX11 -lm -lz
+
+%.o: %.c $(INCLUDE)
+	$(CC) $(CFLAGS) -c $< -o $@  
+
+clean:
+	rm -f $(MANDATORY_OBJS) 
+	$(MAKE) -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C libft fclean
+	$(MAKE) -C minilibx-linux clean
+	$(MAKE) -C libft
 
 re: fclean all
 
-.PHONY: all clean fclean re  # These are commands, not real files
+.PHONY: all clean fclean re 
