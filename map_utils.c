@@ -53,7 +53,7 @@ int	get_max_length(t_list *map_list)
 	max = 0;
 	while (tmp)
 	{
-		len = ft_strlen(tmp->content);
+		len = ft_strlen((char *)tmp->content);
 		if (len > max)
 			max = len;
 		tmp = tmp->next;
@@ -61,60 +61,26 @@ int	get_max_length(t_list *map_list)
 	return (max);
 }
 
-int	save_map_tab(t_game *game, t_list *map_list)
+void	fill_spaces(char *newline, int len, int max)
 {
-	// Compute the map width(column) and height(row)
-	game->map.height = ft_lstsize(map_list);
-	game->map.weight = get_max_length(map_list);
-
-	// Given the map height, initialize an array of char *
-	// Each char * is a map line
-	// Generate a row + NULL-sized array of string : [NULL], [NULL], ... 
-	// 
-	game->map.map_tab = ft_calloc(game->map.height + 1, sizeof(char *));
-	if (!game->map.map_tab)
-		return (0);
-	// Generate a row-sized array of integer : line[0] = int, line[1] = int, ...
-	//game->map.line = malloc(game->map.height * sizeof(int));
-	//if (!game->map.line)
-	//{
-	//	free(game->map.map_tab); // map_tab is an array of NULL pointer, just free this array pointer
-	//	game->map.map_tab = NULL;
-	//	return (0);
-	//}
-	return (1);
+	while (len < max)
+	{
+		newline[len] = ' ';
+		len++;
+	}
+	newline[len] = '\0';
 }
 
-int convert_to_tab(t_list *map_list, t_game *game)
+char	*normalise(int max_len, char *content)
 {
-	return (1);
-}
+	int		len;
+	char	*newline;
 
-/*
- *
- * A read loop for reading and saving the map lines into a list
- * 
- */
-int read_map_lines(t_list **map_lst, int fd)
-{
-    char    *content;
-    t_list  *newnode;
-    
-    while (1)
-    {
-        content = get_next_line(fd);
-        if (!content)
-            break ;
-        delete_newline(content);
-        newnode = ft_lstnew(ft_strdup(content));
-        if (!newnode)
-            return (free(content), ft_lstclear(map_lst, free), 0);
-        ft_lstadd_back(map_lst, newnode);
-    }
-    return (1);
-}
-
-int parse_map(char *line)
-{
-    return (1);
+	len = ft_strlen(content);
+	newline = malloc(sizeof(char) * (max_len + 1));
+	if (!newline)
+		return (NULL);
+	ft_memcpy(newline, content, len);
+	fill_spaces(newline, len, max_len);
+	return (newline);
 }

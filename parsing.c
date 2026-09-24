@@ -28,26 +28,18 @@ int	parse_file(int fd, t_game *game)
 {
 	char 	*line;
 	int 	ret;
-	t_list	*map_head;
 
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
         if (is_map_line(line))
-		{
-			if (check_map_config(game))
-			{
-				delete_newline(line);
-				map_head = ft_lstnew(ft_strdup(line));
-				// if malloc fails, map_head is NULL
-				if (!map_head)
-					return (0);
-				if (!read_map_lines(&map_head, fd))
-					return (0);
-                // convert map line linked list into a 2D array
-                // convert_to_tab(t_list *map_head, t_game *game)
+        {
+            if (check_map_config(game))
+            {
+				ret = parse_map(line, fd, game);
+				free(line);
 			}
-		}
+        }
 		ret = parse_line(line, game);
 		free(line);
 		line = get_next_line(fd);

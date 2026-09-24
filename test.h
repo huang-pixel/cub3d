@@ -18,7 +18,7 @@ typedef struct s_map
     int     floor_color;
     int     ceiling_color;
     int     height;
-    int     weight;
+    int     width;
     char    **map_tab;
     int     *line;
 }			t_map;
@@ -60,10 +60,12 @@ int     parse_color(char *line, t_color *color, t_game *game);
 /* Map parsing */
 int     is_map_line(char *line);
 int 	check_map_config(t_game *game);
-int 	read_map_lines(t_list **map_lst, int fd);
 int	    get_max_length(t_list *map_list);
+void	fill_spaces(char *newline, int len, int max);
+char	*normalise(int max_len, char *content);
+int 	read_map_lines(t_list **map_lst, int fd);
 int	    save_map_tab(t_game *game, t_list *map_list);
-int     convert_to_tab(t_list *map_list, t_game *game);
+int     parse_map(char *line, int fd, t_game *game);
 
 int     parse_line(char *line, t_game *game);
 int		parse_file(int fd, t_game *game);
