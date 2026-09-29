@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 21:52:43 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/13 23:06:22 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/29 23:45:06 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int process_color(char *line, t_color *color, t_game *game)
     char    **color_line;
     int     ret;
 
+    delete_newline(line);
     replace_spaces(line);
     color_line = ft_split(line, ' ');
     if (!color_line)
