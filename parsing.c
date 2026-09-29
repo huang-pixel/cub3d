@@ -3,7 +3,6 @@
 int	parse_line(char *line, t_game *game)
 {
 	int		i;
-	t_color	color;
 
 	// remove the last \n character for each line
 	delete_newline(line);
@@ -20,7 +19,7 @@ int	parse_line(char *line, t_game *game)
 		return (parse_texture(line, game));
 	// whether there's a color line
 	if ((line[i] == 'F' || line[i] == 'C') && ft_isspace(line[i + 1]))
-		return (parse_color(line, &color, game));
+		return (parse_color(line, &game->color, game));
 	return (0);
 }
 
@@ -38,11 +37,16 @@ int	parse_file(int fd, t_game *game)
             {
 				ret = parse_map(line, fd, game);
 				free(line);
+                // Map has been handled, we don't need to read anymore
+                break ;
 			}
         }
 		ret = parse_line(line, game);
 		free(line);
 		line = get_next_line(fd);
 	}
+    close(fd);
 	return (ret);
 }
+
+// validation of player and map

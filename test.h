@@ -4,6 +4,8 @@
 #include "libft/libft.h"
 #include <stdio.h>
 
+# define PI 3.14159265358979323846
+
 typedef struct s_texture
 {
 	char	*path;
@@ -23,6 +25,22 @@ typedef struct s_map
     int     *line;
 }			t_map;
 
+typedef struct s_vector
+{
+	float	x;
+	float	y;
+}			t_vector;
+
+typedef struct s_player
+{
+	t_vector	pos;
+	float	dir_x;
+	float	dir_y;
+	float	angle;
+	float	plane_x;
+	float	plane_y;
+}			t_player;
+
 typedef struct s_color
 {
     int r;
@@ -34,6 +52,8 @@ typedef struct s_game
 {
 	t_map		map;
 	t_texture	tex[4];
+	t_player	player;
+	t_color		color;
 }				t_game;
 
 void    init_game(t_game *game);
@@ -64,10 +84,15 @@ int	    get_max_length(t_list *map_list);
 void	fill_spaces(char *newline, int len, int max);
 char	*normalise(int max_len, char *content);
 int 	read_map_lines(t_list **map_lst, int fd);
+int	    alloc_map_tab(t_game *game, t_list *map_list);
 int	    save_map_tab(t_game *game, t_list *map_list);
 int     parse_map(char *line, int fd, t_game *game);
 
 int     parse_line(char *line, t_game *game);
 int		parse_file(int fd, t_game *game);
+
+/* Player validation */
+int 	valid_player(t_game *game);
+void    set_angle(t_player *player, char c);
 
 #endif

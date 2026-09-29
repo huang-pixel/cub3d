@@ -13,6 +13,7 @@ int is_map_line(char *line)
         return (0);
     if (line[i] == '1' || line[i] == '0')
         return (1);
+	// A player can legally be the first character of the map
     if (ft_strchr("NSEW", line[i]))
     {
         if (line[i + 1] == ' ' || line[i + 1] == '1' || line[i + 1] == '0'
