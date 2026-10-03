@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 00:14:53 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/13 21:48:21 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/29 23:44:38 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	process_texture(char *line, t_game *game)
 {
 	char	**tex;
 	int		ret;
-
-	trim_line(line);
+	
+    delete_newline(line);
 	replace_spaces(line);
 	tex = ft_split(line, ' ');
 	if (!tex)

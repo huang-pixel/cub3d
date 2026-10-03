@@ -1,15 +1,18 @@
 NAME=cub3D
+
 CC=cc
 
 CFLAGS=-Wall -Wextra -Werror -g -Iincludes -std=gnu99 -Iminilibx-linux -Ilibft -MMD -MP
 
-MANDATORY_SRC = src/main.c src/init.c src/free.c src/parsing1.c src/parsing2.c \
-				src/parser_utils.c src/parse_texture.c src/parse_color.c \
-				src/parse_map1.c src/parse_map2.c src/parse_map3.c
+MANDATORY_SRC = src/main.c src/init.c src/free.c src/parse_color.c src/parse_map1.c \
+				src/parse_map2.c src/parse_map3.c src/parse_texture.c src/parser_utils.c \
+				src/parsing1.c src/parsing2.c
 MANDATORY_OBJS=$(MANDATORY_SRC:.c=.o)
 
 LIBFT=libft/libft.a
 MLX=minilibx-linux/libmlx.a
+
+.DEFAULT_GOAL := all
 
 all: $(NAME)
 

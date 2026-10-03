@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 23:07:31 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/13 23:08:12 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/09/29 23:44:08 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int	line_type(char *line)
 	int	i;
 
 	i = skip_spaces(line);
-    delete_newline(line);
 	if (line[i] == '\0' || line[i] == '\n')
 		return (EMPTY_LINE);
 	if (line[i] == 'N' && line[i + 1] == 'O')
