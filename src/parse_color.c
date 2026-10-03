@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-int is_valid_color_line(char **tab)
+int	is_valid_color_line(char **tab)
 {
-    if (count_size(tab) != 2)
-    {
-        ft_putstr_fd(ERR_COL_LINE, 2);
-        return (0);
-    }
-    return (1);
+	if (count_size(tab) != 2)
+	{
+		ft_putstr_fd(ERR_COL_LINE, 2);
+		return (0);
+	}
+	return (1);
 }
 
 /*
@@ -48,20 +48,20 @@ int	is_valid_value(char *value)
 	return (1);
 }
 
-int is_all_valid_rgb(char *color_str, t_color *color)
+int	is_all_valid_rgb(char *color_str, t_color *color)
 {
-    char    **rgb;
+	char	**rgb;
 	int		i;
 
-    rgb = ft_split(color_str, ',');
-    if (!rgb || count_size(rgb) != 3)
-        return (free_tab(rgb), ft_putstr_fd(ERR_COL_FORMAT, 2), 0);
-    i = -1;
-    while (rgb[++i])
-    {
-        if (!is_valid_value(rgb[i]))
-            return (free_tab(rgb), ft_putstr_fd(ERR_COL_VAL, 2), 0); 
-    }
+	rgb = ft_split(color_str, ',');
+	if (!rgb || count_size(rgb) != 3)
+		return (free_tab(rgb), ft_putstr_fd(ERR_COL_FORMAT, 2), 0);
+	i = -1;
+	while (rgb[++i])
+	{
+		if (!is_valid_value(rgb[i]))
+			return (free_tab(rgb), ft_putstr_fd(ERR_COL_VAL, 2), 0);
+	}
 	color->r = ft_atoi(rgb[0]);
 	color->g = ft_atoi(rgb[1]);
 	color->b = ft_atoi(rgb[2]);
@@ -72,36 +72,40 @@ int is_all_valid_rgb(char *color_str, t_color *color)
 int	set_rgb_value(char **color_line, t_color *color, t_game *game)
 {
 	if (!ft_strncmp(color_line[0], "F", 2))
-    {
-        if (game->map.map_config.floor_color != -1)
-			return(ft_putstr_fd(ERR_COL_DUP, 2), 0);
-		game->map.map_config.ceiling_color = (color->r << 16 | color->g << 8 | color->b);
-    }
-    else if (!ft_strncmp(color_line[0], "C", 2))
-    {
-        if (game->map.map_config.ceiling_color != -1)
-			return(ft_putstr_fd(ERR_COL_DUP, 2), 0);
-		game->map.map_config.ceiling_color = (color->r << 16 | color->g << 8 | color->b);
-    }
+	{
+		if (game->map.map_config.floor_color != -1)
+			return (ft_putstr_fd(ERR_COL_DUP, 2), 0);
+		game->map.map_config.floor_color = ((color->r << 16)
+				| (color->g << 8) | color->b);
+	}
+	else if (!ft_strncmp(color_line[0], "C", 2))
+	{
+		if (game->map.map_config.ceiling_color != -1)
+			return (ft_putstr_fd(ERR_COL_DUP, 2), 0);
+		game->map.map_config.ceiling_color = ((color->r << 16)
+				| (color->g << 8) | color->b);
+	}
 	else
 		return (0);
 	return (1);
 }
 
-int process_color(char *line, t_color *color, t_game *game)
+int	process_color(char *line, t_game *game)
 {
-    char    **color_line;
-    int     ret;
+	char	**color_line;
+	int		ret;
+	t_color	color;
 
-    replace_spaces(line);
-    color_line = ft_split(line, ' ');
-    if (!color_line)
-        return (0);
-    if (!is_valid_color_line(color_line))
-        return (free_tab(color_line), 0);
-	if (!is_all_valid_rgb(color_line[1], color))
-        return (free_tab(color_line), 0);
-	ret = set_rgb_value(color_line, color, game);
+	trim_line(line);
+	replace_spaces(line);
+	color_line = ft_split(line, ' ');
+	if (!color_line)
+		return (0);
+	if (!is_valid_color_line(color_line))
+		return (free_tab(color_line), 0);
+	if (!is_all_valid_rgb(color_line[1], &color))
+		return (free_tab(color_line), 0);
+	ret = set_rgb_value(color_line, &color, game);
 	free_tab(color_line);
-    return (ret);
+	return (ret);
 }

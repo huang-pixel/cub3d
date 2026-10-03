@@ -36,10 +36,21 @@ int	is_valid_tex(char **tex)
 	len = ft_strlen(tex[1]);
 	if (len < 4 || ft_strncmp(tex[1] + len - 4, ".xpm", 4))
 	{
+		close(fd);
 		ft_putstr_fd(ERR_TEXTURE_EXT, 2);
 		return (0);
 	}
 	close(fd);
+	return (1);
+}
+
+static int	set_tex(char **txt_dst, char *txt_src)
+{
+	if (*txt_dst != NULL)
+		return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
+	*txt_dst = ft_strdup(txt_src);
+	if (!*txt_dst)
+		return (ft_putstr_fd(ERR_MALLOC, 2), 0);
 	return (1);
 }
 
@@ -53,33 +64,16 @@ int	is_valid_tex(char **tex)
  */
 int	save_tex_path(char **tex, t_game *game)
 {
-	if (!ft_strncmp(tex[0], "NO", 3))
-	{
-        if (game->map.map_config.no_txture != NULL)
-            return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.map_config.no_txture = ft_strdup(tex[1]);
-    }
-	else if (!ft_strncmp(tex[0], "SO", 3))
-	{
-        if (game->map.map_config.so_txture != NULL)
-            return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.map_config.so_txture = ft_strdup(tex[1]);
-    }
-	else if (!ft_strncmp(tex[0], "WE", 3))
-	{
-        if (game->map.map_config.we_txture != NULL)
-            return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.map_config.we_txture = ft_strdup(tex[1]);
-    }
-	else if (!ft_strncmp(tex[0], "EA", 3))
-	{
-        if (game->map.map_config.ea_txture != NULL)
-            return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
-        game->map.map_config.ea_txture = ft_strdup(tex[1]);
-    }
-    else
-        return (0);
-    return (1);
+	if (!ft_strncmp(tex[0], "NO", 2))
+		return (set_tex(&game->map.map_config.no_txture, tex[1]));
+	else if (!ft_strncmp(tex[0], "SO", 2))
+		return (set_tex(&game->map.map_config.so_txture, tex[1]));
+	else if (!ft_strncmp(tex[0], "WE", 2))
+		return (set_tex(&game->map.map_config.we_txture, tex[1]));
+	else if (!ft_strncmp(tex[0], "EA", 2))
+		return (set_tex(&game->map.map_config.ea_txture, tex[1]));
+	ft_putstr_fd(ERR_TEXTURE_LINE, 2);
+	return (0);
 }
 
 /*
@@ -98,15 +92,11 @@ int	process_texture(char *line, t_game *game)
 	char	**tex;
 	int		ret;
 
+	trim_line(line);
 	replace_spaces(line);
 	tex = ft_split(line, ' ');
-    if (!tex)
-        return (0);
-    /*if (!tex[0])
-    {
-        free_tab(tex);
-        return (1);
-    }*/
+	if (!tex)
+		return (0);
 	if (!(is_valid_tex(tex)))
 	{
 		free_tab(tex);

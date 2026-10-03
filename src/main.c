@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 /*
  *
@@ -28,30 +28,28 @@ static int	check_args(int ac, char **av)
 	if (ac != 2)
 	{
 		ft_putstr_fd(ERR_ARG, 2);
-		return (0);
+		return (1);
 	}
 	len = ft_strlen(av[1]);
 	if (len < 4 || ft_strncmp(av[1] + len - 4, ".cub", 4))
 	{
 		ft_putstr_fd(ERR_EXT, 2);
-		return (0);
-
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
 	t_game	game;
 
-	if (!check_args(ac, av))
+	if (check_args(ac, av))
 		return (1);
-	// init game struct
 	init_game(&game);
 	if (parse_file(av[1], &game))
 		return (free_game(&game), 1);
-	
-	// parse map file
-	//start game
-	//free everything
+	// if (start_game(&game))
+	// 	return (free_game(&game), 1);
+	// free_game(&game);
+	return (EXIT_SUCCESS);
 }

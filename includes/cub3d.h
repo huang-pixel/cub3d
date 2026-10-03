@@ -13,9 +13,11 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "libft.h"
-#include "mlx.h"
-#include <math.h>
+# include "../libft/libft.h"
+//#include "mlx.h"
+# include <math.h>
+# include <stdio.h>
+# include <stdbool.h>
 
 # define KEY_W   119
 # define KEY_S	115
@@ -29,8 +31,11 @@
 # define ERR_EXT "Error\n Invalid map file extension\n"
 # define ERR_READ_MAP "Error\n Can't read map file\n"
 # define ERR_MAP "Error\n Invalid map file\n"
-# define ERR_MAP_LINE "Error\n Invalid line in the map file\n"
-# define ERR_DUP_IDENTIFIER "Error\n Duplicate identifier in the map\n"
+# define ERR_MAP_LINE "Error\n Invalid map line!\n"
+# define ERR_DUP_TEX_IDENT "Error\n Duplicate texture identifier in the map\n"
+# define ERR_DUP_FLOOR_COL "Error\n Duplicate floor color\n"
+# define ERR_DUP_CEIL_COL "Error\n Duplicate ceiling color\n"
+# define ERR_INVALID_HEADER "Error\n Invalid header line\n"
 # define ERR_MISS_IDENTIFIER "Error\n Missing identifier in the map\n"
 # define ERR_MISSING_TEXTURE "Error\n Missing texture configuration\n"
 # define ERR_MISSING_COLOR "Error\n Missing color configuration\n"
@@ -47,19 +52,21 @@
 # define ERR_DUP_TEXTURE "Error\n Duplication texture\n"
 # define ERR_PLAYER "Error\n Something wrong with the player!\n"
 # define ERR_MAP_CLOSE "Error\n Something wrong with the map!\n"
-
+# define ERR_MAP_EMPTY_LINE "Error\n Empty lines in the map!\n"
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
 
-typedef enum e_line_type
+typedef enum e_identifier
 {
-	INVALID_LINE = -1,
-	EMPTY_LINE,
-	TEXTURE_LINE,
-	COLOR_LINE,
-	MAP_LINE,
-} t_line_type;
+	ID_NO,
+	ID_SO,
+	ID_WE,
+	ID_EA,
+	ID_F,
+	ID_C,
+	ID_COUNT
+}	t_identifier;
 
 /*
  *
@@ -69,10 +76,10 @@ typedef enum e_line_type
 typedef struct s_mlx
 {
 	void	*mlx;
-	void 	*win;
+	void	*win;
 	void	*img;
 	char	*img_addr;
-} t_mlx;
+}	t_mlx;
 
 typedef struct s_mapconfig
 {
@@ -124,10 +131,10 @@ typedef struct s_vector
 
 typedef struct s_color
 {
-    int r;
-    int g;
-    int b;
-}       t_color;
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 
 /*
  *
@@ -142,16 +149,16 @@ typedef struct s_color
 typedef struct s_player
 {
 	t_vector	pos;
-	float	dir_x;
-	float	dir_y;
-	float	plane_x;
-	float	plane_y; 
-	int		move_forward;
-	int		move_backward;
-	int		move_left;
-	int		move_right;
-	int		rotate_left;
-	int		rotate_right;
+	float		dir_x;
+	float		dir_y;
+	float		plane_x;
+	float		plane_y;
+	int			move_forward;
+	int			move_backward;
+	int			move_left;
+	int			move_right;
+	int			rotate_left;
+	int			rotate_right;
 }	t_player;
 
 /*
@@ -168,35 +175,51 @@ typedef struct s_game
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
-    t_color     color;
 }	t_game;
 
 /* Initilization game */
-void    init_game(t_game *game);
+void	init_game(t_game *game);
 
+/* parsing1.c */
 int		parse_file(char *file, t_game *game);
 
-/* Clean up */
+/* parsing2.c */
+char	**read_all_map_lines(int fd);
+int		find_map_start(char **lines);
+int		handle_header_line(char *line, t_game *game, int *found);
+int		parse_header(char **lines, int map_start, t_game *game);
+
+/* free.c */
 void	free_tab(char **tab);
 void	free_game(t_game *game);
+void	free_map(char **map_data, int height);
 
 /* Parsing Texture */
-int	is_valid_tex(char **tex);
-int	save_tex_path(char **tex, t_game *game);
-int	process_texture(char *line, t_game *game);
+int		is_valid_tex(char **tex);
+int		save_tex_path(char **tex, t_game *game);
+int		process_texture(char *line, t_game *game);
 
 /* Parsing Color */
-int is_valid_color_line(char **tab);
-int	is_valid_value(char *value);
-int is_all_valid_rgb(char *color_str, t_color *color);
-int	set_rgb_value(char **color_line, t_color *color, t_game *game);
-int	process_color(char *line, t_color *color, t_game *game);
-int	process_map(char *line, t_game *g);
+int		is_valid_color_line(char **tab);
+int		is_valid_value(char *value);
+int		is_all_valid_rgb(char *color_str, t_color *color);
+int		set_rgb_value(char **color_line, t_color *color, t_game *game);
+int		process_color(char *line, t_game *game);
+
+/* parse_map1.c */
+int		parsing_map(char **lines, t_game *game);
+
+/* parse_map2.c */
+int		find_player(t_game *game);
+
+/* parse_map3.c */
+int		check_map_closure(t_game *g);
 
 /* Parsing utils */
 int		skip_spaces(char *line);
-int	    count_size(char	**tex);
+int		count_size(char	**tex);
 void	delete_newline(char *line);
 void	replace_spaces(char	*line);
+void	trim_line(char *s);
 
 #endif
