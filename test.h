@@ -92,7 +92,12 @@ int     parse_line(char *line, t_game *game);
 int		parse_file(int fd, t_game *game);
 
 /* Player validation */
-int 	valid_player(t_game *game);
 void    set_angle(t_player *player, char c);
+int     save_player_pos(t_game *game, int x, int y);
+int 	is_valid_player(t_game *game);
+
+/* Map validation */
+int is_valid_char(char c);
+int	check_valid_char(t_game *game);
 
 #endif

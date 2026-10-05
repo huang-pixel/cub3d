@@ -1,5 +1,23 @@
 #include "test.h"
 
+/*
+ * 
+ * dir  = where I look
+ * plane = how wide I see
+ * angle = direction expressed as an angle
+ */
+
+/*
+ * To calculate each ray’s direction:
+ *  rayDir = direction + cameraPlane * cameraX
+ *  direction = player direction vector
+ *  cameraX = a value from -1 (left edge) to +1 (right edge)
+ *  cameraPlane = left/right direction vector (FOV)
+ *  PI / 2: 90 degrees, expressed in radians.
+ *  0.66f: Camera plane length → controls FOV.
+ * 
+ */
+
 static void set_no_angle(t_player *player)
 {
     player->angle = -PI / 2;
