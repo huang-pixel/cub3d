@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vino <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/03 05:37:30 by vino              #+#    #+#             */
-/*   Updated: 2026/10/03 05:37:32 by vino             ###   ########.fr       */
+/*   Updated: 2026/10/05 16:30:05 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	set_player_position(t_game *game, int *count, int row, int col)
 {
 	(*count)++;
-	game->player.pos.x = col + 0.5;
-	game->player.pos.y = row + 0.5;
+	game->player.pos.x = (float)col + 0.5f;
+	game->player.pos.y = (float)row + 0.5f;
 	game->map.map_data[row][col] = '0';
 }
 
@@ -24,17 +24,19 @@ static void	set_player_ns_dir(t_game *g, char c)
 {
 	if (c == 'N')
 	{
-		g->player.dir_x = 0;
-		g->player.dir_y = -1;
-		g->player.plane_x = 0.66;
-		g->player.plane_y = 0;
+        g->player.angle = -PI / 2;
+		g->player.dir_x = 0.0f;
+		g->player.dir_y = -1.0f;
+		g->player.plane_x = 0.66f;
+		g->player.plane_y = 0.0f;
 	}
 	else if (c == 'S')
 	{
-		g->player.dir_x = 0;
-		g->player.dir_y = 1;
-		g->player.plane_x = -0.66;
-		g->player.plane_y = 0;
+        g->player.angle = PI / 2;
+		g->player.dir_x = 0.0f;
+		g->player.dir_y = 1.0f;
+		g->player.plane_x = -0.66f;
+		g->player.plane_y = 0.0f;
 	}
 }
 
@@ -42,17 +44,19 @@ static void	set_player_we_dir(t_game *g, char c)
 {
 	if (c == 'W')
 	{
-		g->player.dir_x = -1;
-		g->player.dir_y = 0;
-		g->player.plane_x = 0;
-		g->player.plane_y = -0.66;
+        g->player.angle = PI;
+		g->player.dir_x = -1.0f;
+		g->player.dir_y = 0.0f;
+		g->player.plane_x = 0.0f;
+		g->player.plane_y = -0.66f;
 	}
 	else if (c == 'E')
 	{
-		g->player.dir_x = 1;
-		g->player.dir_y = 0;
-		g->player.plane_x = 0;
-		g->player.plane_y = 0.66;
+        g->player.angle = 0.0f;
+		g->player.dir_x = 1.0f;
+		g->player.dir_y = 0.0f;
+		g->player.plane_x = 0.0f;
+		g->player.plane_y = 0.66f;
 	}
 }
 

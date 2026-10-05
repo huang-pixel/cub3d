@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/13 23:07:30 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/05 16:25:04 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
+
+# define PI 3.14159265358979323846
 
 typedef enum e_identifier
 {
@@ -153,6 +155,7 @@ typedef struct s_player
 	float		dir_y;
 	float		plane_x;
 	float		plane_y;
+    float	    angle;
 	int			move_forward;
 	int			move_backward;
 	int			move_left;
@@ -175,6 +178,7 @@ typedef struct s_game
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
+    t_color		color;
 }	t_game;
 
 /* Initilization game */
