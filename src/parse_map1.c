@@ -36,7 +36,7 @@
  *   0  if any line is invalid (and prints the corresponding error)
  */
 
-static int	validate_map_lines(char **lines)
+static bool	validate_map_lines(char **lines)
 {
 	int		i;
 	int		j;
@@ -56,13 +56,13 @@ static int	validate_map_lines(char **lines)
 			if (c != '0' && c != '1' && c != 'N'
 				&& c != 'S' && c != 'E' && c != 'W'
 				&& c != ' ' && c != '\t' && c != '\n')
-				return (ft_putstr_fd(ERR_MAP_LINE, 2), 0);
+				return (ft_putstr_fd(ERR_MAP_LINE, 2), false);
 		}
 		if (only_spaces)
-			return (ft_putstr_fd(ERR_MAP_EMPTY_LINE, 2), 0);
+			return (ft_putstr_fd(ERR_MAP_EMPTY_LINE, 2), false);
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
 static void	find_map_height_max_width(char **lines, t_game *game)
@@ -113,7 +113,7 @@ static void	find_map_height_max_width(char **lines, t_game *game)
  *   0 on allocation failure (and prints an error)
  */
 
-static int	build_rectangular_grid(char **lines, t_game *game)
+static bool	build_rectangular_grid(char **lines, t_game *game)
 {
 	int	i;
 	int	j;
@@ -122,14 +122,14 @@ static int	build_rectangular_grid(char **lines, t_game *game)
 	find_map_height_max_width(lines, game);
 	game->map.map_data = malloc(sizeof(char *) * game->map.map_height);
 	if (!game->map.map_data)
-		return (ft_putstr_fd(ERR_MALLOC, 2), 0);
+		return (ft_putstr_fd(ERR_MALLOC, 2), false);
 	while (++i < game->map.map_height)
 	{
 		j = -1;
 		game->map.map_data[i] = malloc(game->map.map_width + 1);
 		if (!game->map.map_data[i])
 			return (free_map(game->map.map_data, i),
-				ft_putstr_fd(ERR_MALLOC, 2), 0);
+				ft_putstr_fd(ERR_MALLOC, 2), false);
 		while (++j < game->map.map_width)
 		{
 			if (lines[i][j] == '\0')
@@ -139,18 +139,18 @@ static int	build_rectangular_grid(char **lines, t_game *game)
 		}
 		game->map.map_data[i][j] = '\0';
 	}
-	return (1);
+	return (true);
 }
 
-int	parsing_map(char **lines, t_game *game)
+bool	parsing_map(char **lines, t_game *game)
 {
 	if (!validate_map_lines(lines))
-		return (1);
+		return (false);
 	if (!build_rectangular_grid(lines, game))
-		return (1);
+		return (false);
 	if (!find_player(game))
-		return (1);
+		return (false);
 	if (!check_map_closure(game))
-		return (1);
-	return (0);
+		return (false);
+	return (true);
 }

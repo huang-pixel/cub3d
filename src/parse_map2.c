@@ -24,7 +24,7 @@ static void	set_player_ns_dir(t_game *g, char c)
 {
 	if (c == 'N')
 	{
-        g->player.angle = -PI / 2;
+		g->player.angle = -PI / 2;
 		g->player.dir_x = 0.0f;
 		g->player.dir_y = -1.0f;
 		g->player.plane_x = 0.66f;
@@ -32,7 +32,7 @@ static void	set_player_ns_dir(t_game *g, char c)
 	}
 	else if (c == 'S')
 	{
-        g->player.angle = PI / 2;
+		g->player.angle = PI / 2;
 		g->player.dir_x = 0.0f;
 		g->player.dir_y = 1.0f;
 		g->player.plane_x = -0.66f;
@@ -44,7 +44,7 @@ static void	set_player_we_dir(t_game *g, char c)
 {
 	if (c == 'W')
 	{
-        g->player.angle = PI;
+		g->player.angle = PI;
 		g->player.dir_x = -1.0f;
 		g->player.dir_y = 0.0f;
 		g->player.plane_x = 0.0f;
@@ -52,7 +52,7 @@ static void	set_player_we_dir(t_game *g, char c)
 	}
 	else if (c == 'E')
 	{
-        g->player.angle = 0.0f;
+		g->player.angle = 0.0f;
 		g->player.dir_x = 1.0f;
 		g->player.dir_y = 0.0f;
 		g->player.plane_x = 0.0f;
@@ -74,7 +74,7 @@ static void	set_player_we_dir(t_game *g, char c)
  * Returns 1 on success, or 0 and prints an error if none or multiple are found.
  */
 
-int	find_player(t_game *game)
+bool	find_player(t_game *game)
 {
 	int		i;
 	int		j;
@@ -98,6 +98,6 @@ int	find_player(t_game *game)
 		}
 	}
 	if (player_count != 1)
-		return (ft_putstr_fd(ERR_PLAYER, 2), 0);
-	return (1);
+		return (ft_putstr_fd(ERR_PLAYER, 2), false);
+	return (true);
 }

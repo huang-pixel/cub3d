@@ -17,7 +17,7 @@
  * 1. element number, 2. open file, 3. .xpm extension
  * 
  */
-int	is_valid_tex(char **tex)
+bool	is_valid_tex(char **tex)
 {
 	int	fd;
 	int	len;
@@ -25,33 +25,33 @@ int	is_valid_tex(char **tex)
 	if (count_size(tex) != 2)
 	{
 		ft_putstr_fd(ERR_TEXTURE_LINE, 2);
-		return (0);
+		return (false);
 	}
 	fd = open(tex[1], O_RDONLY);
 	if (fd < 0)
 	{
 		ft_putstr_fd(ERR_TEXTURE_READ, 2);
-		return (0);
+		return (false);
 	}
 	len = ft_strlen(tex[1]);
 	if (len < 4 || ft_strncmp(tex[1] + len - 4, ".xpm", 4))
 	{
 		close(fd);
 		ft_putstr_fd(ERR_TEXTURE_EXT, 2);
-		return (0);
+		return (false);
 	}
 	close(fd);
-	return (1);
+	return (true);
 }
 
-static int	set_tex(char **txt_dst, char *txt_src)
+static bool	set_tex(char **txt_dst, char *txt_src)
 {
 	if (*txt_dst != NULL)
-		return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), 0);
+		return (ft_putstr_fd(ERR_DUP_TEXTURE, 2), false);
 	*txt_dst = ft_strdup(txt_src);
 	if (!*txt_dst)
-		return (ft_putstr_fd(ERR_MALLOC, 2), 0);
-	return (1);
+		return (ft_putstr_fd(ERR_MALLOC, 2), false);
+	return (true);
 }
 
 /*
@@ -62,7 +62,7 @@ static int	set_tex(char **txt_dst, char *txt_src)
  * If ft_strncmp fails, return 0
  * 
  */
-int	save_tex_path(char **tex, t_game *game)
+bool	save_tex_path(char **tex, t_game *game)
 {
 	if (!ft_strncmp(tex[0], "NO", 2))
 		return (set_tex(&game->map.map_config.no_txture, tex[1]));
@@ -73,7 +73,7 @@ int	save_tex_path(char **tex, t_game *game)
 	else if (!ft_strncmp(tex[0], "EA", 2))
 		return (set_tex(&game->map.map_config.ea_txture, tex[1]));
 	ft_putstr_fd(ERR_TEXTURE_LINE, 2);
-	return (0);
+	return (true);
 }
 
 /*
@@ -87,20 +87,20 @@ int	save_tex_path(char **tex, t_game *game)
  * - Store the line
  * 
  */
-int	process_texture(char *line, t_game *game)
+bool	process_texture(char *line, t_game *game)
 {
 	char	**tex;
 	int		ret;
-	
-    delete_newline(line);
+
+	delete_newline(line);
 	replace_spaces(line);
 	tex = ft_split(line, ' ');
 	if (!tex)
-		return (0);
+		return (false);
 	if (!(is_valid_tex(tex)))
 	{
 		free_tab(tex);
-		return (0);
+		return (false);
 	}
 	ret = save_tex_path(tex, game);
 	free_tab(tex);

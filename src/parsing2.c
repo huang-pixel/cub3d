@@ -86,27 +86,27 @@ static int	get_header_identifier(char *line)
 	return (-1);
 }
 
-int	handle_header_line(char *line, t_game *game, int *found)
+bool	handle_header_line(char *line, t_game *game, int *found)
 {
 	int	id;
 
 	id = get_header_identifier(line);
 	if (id < 0)
-		return (ft_putstr_fd(ERR_INVALID_HEADER, 2), 1);
+		return (ft_putstr_fd(ERR_INVALID_HEADER, 2), false);
 	if (found[id])
 	{
 		if (id == ID_NO)
-			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), 1);
+			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), false);
 		if (id == ID_SO)
-			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), 1);
+			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), false);
 		if (id == ID_WE)
-			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), 1);
+			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), false);
 		if (id == ID_EA)
-			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), 1);
+			return (ft_putstr_fd(ERR_DUP_TEX_IDENT, 2), false);
 		if (id == ID_F)
-			return (ft_putstr_fd(ERR_DUP_FLOOR_COL, 2), 1);
+			return (ft_putstr_fd(ERR_DUP_FLOOR_COL, 2), false);
 		if (id == ID_C)
-			return (ft_putstr_fd(ERR_DUP_CEIL_COL, 2), 1);
+			return (ft_putstr_fd(ERR_DUP_CEIL_COL, 2), false);
 	}
 	found[id] = 1;
 	if (id == ID_NO || id == ID_SO || id == ID_WE || id == ID_EA)
@@ -128,7 +128,7 @@ int	handle_header_line(char *line, t_game *game, int *found)
 **   1 on error
 */
 
-int	parse_header(char **lines, int map_start, t_game *game)
+bool	parse_header(char **lines, int map_start, t_game *game)
 {
 	int		i;
 	int		found[ID_COUNT];
@@ -143,13 +143,13 @@ int	parse_header(char **lines, int map_start, t_game *game)
 			tmp++;
 		if (*tmp != '\0' && *tmp != '\n')
 		{
-			if (handle_header_line(tmp, game, found))
-				return (1);
+			if (!handle_header_line(tmp, game, found))
+				return (false);
 		}
 		i++;
 	}
 	if (!found[ID_NO] || !found[ID_SO] || !found[ID_WE]
 		|| !found[ID_EA] || !found[ID_F] || !found[ID_C])
-		return (ft_putstr_fd(ERR_MISS_IDENTIFIER, 2), 1);
-	return (0);
+		return (ft_putstr_fd(ERR_MISS_IDENTIFIER, 2), false);
+	return (true);
 }

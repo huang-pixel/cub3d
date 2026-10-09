@@ -19,7 +19,7 @@
  * returns 0 on success, 1 on any error.
  */
 
-int	parse_file(char *file, t_game *game)
+bool	parse_file(char *file, t_game *game)
 {
 	char	**map_lines;
 	int		fd;
@@ -27,17 +27,17 @@ int	parse_file(char *file, t_game *game)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (ft_putstr_fd(ERR_READ_MAP, 2), 1);
+		return (ft_putstr_fd(ERR_READ_MAP, 2), false);
 	map_lines = read_all_map_lines(fd);
 	close(fd);
 	if (!map_lines)
-		return (ft_putstr_fd(ERR_READ_MAP, 2), 1);
+		return (ft_putstr_fd(ERR_READ_MAP, 2), false);
 	map_start = find_map_start(map_lines);
 	if (map_start < 0)
-		return (free_tab(map_lines), ft_putstr_fd(ERR_MAP, 2), 1);
-	if (parse_header(map_lines, map_start, game))
-		return (free_tab(map_lines), 1);
-	if (parsing_map(map_lines + map_start, game))
-		return (free_tab(map_lines), 1);
-	return (0);
+		return (free_tab(map_lines), ft_putstr_fd(ERR_MAP, 2), false);
+	if (!parse_header(map_lines, map_start, game))
+		return (free_tab(map_lines), false);
+	if (!parsing_map(map_lines + map_start, game))
+		return (free_tab(map_lines), false);
+	return (true);
 }

@@ -19,13 +19,13 @@
  *          0 otherwise.
  */
 
-static int	is_walkable(char c)
+static bool	is_walkable(char c)
 {
 	return (c == '0' || c == 'N'
 		|| c == 'S' || c == 'E' || c == 'W');
 }
 
-static int	is_inside_map(t_game *g, int row, int col)
+static bool	is_inside_map(t_game *g, int row, int col)
 {
 	return (row >= 0 && row < g->map.map_height
 		&& col >= 0 && col < g->map.map_width);
@@ -71,25 +71,25 @@ static int	is_safe_cell(t_game *g, int row, int col)
  *   0 otherwise.
  */
 
-static int	check_neighbors(t_game *g, int row, int col)
+static bool	check_neighbors(t_game *g, int row, int col)
 {
 	if (!is_inside_map(g, row - 1, col))
-		return (0);
+		return (false);
 	if (!is_safe_cell(g, row - 1, col))
-		return (0);
+		return (false);
 	if (!is_inside_map(g, row + 1, col))
-		return (0);
+		return (false);
 	if (!is_safe_cell(g, row + 1, col))
-		return (0);
+		return (false);
 	if (!is_inside_map(g, row, col - 1))
-		return (0);
+		return (false);
 	if (!is_safe_cell(g, row, col - 1))
-		return (0);
+		return (false);
 	if (!is_inside_map(g, row, col + 1))
-		return (0);
+		return (false);
 	if (!is_safe_cell(g, row, col + 1))
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
 
 /*
@@ -107,7 +107,7 @@ static int	check_neighbors(t_game *g, int row, int col)
  * Returns 1 if the map is fully closed, otherwise 0.
  */
 
-int	check_map_closure(t_game *g)
+bool	check_map_closure(t_game *g)
 {
 	int	i;
 	int	j;
@@ -121,11 +121,11 @@ int	check_map_closure(t_game *g)
 			if (is_walkable(g->map.map_data[i][j]))
 			{
 				if (!check_neighbors(g, i, j))
-					return (ft_putstr_fd(ERR_MAP_CLOSE, 2), 0);
+					return (ft_putstr_fd(ERR_MAP_CLOSE, 2), false);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (true);
 }

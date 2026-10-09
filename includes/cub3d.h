@@ -155,7 +155,7 @@ typedef struct s_player
 	float		dir_y;
 	float		plane_x;
 	float		plane_y;
-    float	    angle;
+	float		angle;
 	int			move_forward;
 	int			move_backward;
 	int			move_left;
@@ -178,20 +178,20 @@ typedef struct s_game
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
-    t_color		color;
+	t_color		color;
 }	t_game;
 
 /* Initilization game */
 void	init_game(t_game *game);
 
 /* parsing1.c */
-int		parse_file(char *file, t_game *game);
+bool	parse_file(char *file, t_game *game);
 
 /* parsing2.c */
 char	**read_all_map_lines(int fd);
 int		find_map_start(char **lines);
-int		handle_header_line(char *line, t_game *game, int *found);
-int		parse_header(char **lines, int map_start, t_game *game);
+bool	handle_header_line(char *line, t_game *game, int *found);
+bool	parse_header(char **lines, int map_start, t_game *game);
 
 /* free.c */
 void	free_tab(char **tab);
@@ -199,25 +199,25 @@ void	free_game(t_game *game);
 void	free_map(char **map_data, int height);
 
 /* Parsing Texture */
-int		is_valid_tex(char **tex);
-int		save_tex_path(char **tex, t_game *game);
-int		process_texture(char *line, t_game *game);
+bool	is_valid_tex(char **tex);
+bool	save_tex_path(char **tex, t_game *game);
+bool	process_texture(char *line, t_game *game);
 
 /* Parsing Color */
-int		is_valid_color_line(char **tab);
-int		is_valid_value(char *value);
-int		is_all_valid_rgb(char *color_str, t_color *color);
-int		set_rgb_value(char **color_line, t_color *color, t_game *game);
-int		process_color(char *line, t_game *game);
+bool	is_valid_color_line(char **tab);
+bool	is_valid_value(char *value);
+bool	is_all_valid_rgb(char *color_str, t_color *color);
+bool	set_rgb_value(char **color_line, t_color *color, t_game *game);
+bool	process_color(char *line, t_game *game);
 
 /* parse_map1.c */
-int		parsing_map(char **lines, t_game *game);
+bool	parsing_map(char **lines, t_game *game);
 
 /* parse_map2.c */
-int		find_player(t_game *game);
+bool	find_player(t_game *game);
 
 /* parse_map3.c */
-int		check_map_closure(t_game *g);
+bool	check_map_closure(t_game *g);
 
 /* Parsing utils */
 int		skip_spaces(char *line);
