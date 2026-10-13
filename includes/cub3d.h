@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/05 16:25:04 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/13 23:34:48 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define ERR_PLAYER "Error\n Something wrong with the player!\n"
 # define ERR_MAP_CLOSE "Error\n Something wrong with the map!\n"
 # define ERR_MAP_EMPTY_LINE "Error\n Empty lines in the map!\n"
+# define ERR_MLX_INIT "Error\n MLX initialization failed!\n"
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
@@ -73,15 +74,26 @@ typedef enum e_identifier
 /*
  *
  * mlx struct:
- *
+ *  - mlx_ptr: MLX content
+ *  - window: game window
+ *  - image: rendered scene
+ *  - img_add: address of image pixel data
+ *  - bits_pixel: bits used to represent one pixel
+ *  - line_len: how much memory do we skip to reach the next row
+ *  - endian: In what order are the bytes of a pixel stored
+ * 
  */
-typedef struct s_mlx
+
+typedef struct s_mlx_data
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*img_addr;
-}	t_mlx;
+	void	*mlx_ptr;
+	void	*window;
+	void	*image;
+	char	*img_add;
+    int     bits_pixel;
+    int     line_len;
+    int     endian;
+}	        t_mlx_data;
 
 typedef struct s_mapconfig
 {
@@ -174,7 +186,7 @@ typedef struct s_player
  */
 typedef struct s_game
 {
-	t_mlx		mlx;
+	t_mlx_data	*mlx_data;
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
@@ -183,6 +195,7 @@ typedef struct s_game
 
 /* Initilization game */
 void	init_game(t_game *game);
+t_mlx_data	*init_mlx_data(void);
 
 /* parsing1.c */
 bool	parse_file(char *file, t_game *game);
