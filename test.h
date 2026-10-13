@@ -97,7 +97,9 @@ int     save_player_pos(t_game *game, int x, int y);
 int 	is_valid_player(t_game *game);
 
 /* Map validation */
-int is_valid_char(char c);
-int	check_valid_char(t_game *game);
+int     is_valid_char(char c);
+int	    check_valid_char(t_game *game);
+char	**dup_map(t_game *game);
+
 
 #endif
