@@ -6,11 +6,11 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 04:03:42 by vino              #+#    #+#             */
-/*   Updated: 2026/10/15 18:27:59 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 00:31:52 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	init_game(t_game *game)
 {
