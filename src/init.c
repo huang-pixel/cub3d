@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 04:03:42 by vino              #+#    #+#             */
-/*   Updated: 2026/10/13 23:31:37 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/15 18:27:59 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,22 @@ t_mlx_data	*init_mlx_data(void)
 	mlx_data->line_len = 0;
 	mlx_data->endian = 0;
 	return (mlx_data);
+}
+
+int engine_setup(t_game *game)
+{
+	game->mlx_data->window = mlx_new_window(game->mlx_data->mlx_ptr,
+			WIN_WIDTH, WIN_HEIGHT, "cub3D");
+	if (!game->mlx_data->window)
+		return (0);
+	game->mlx_data->image = mlx_new_image(game->mlx_data->mlx_ptr,
+			WIN_WIDTH, WIN_HEIGHT);
+	if (!game->mlx_data->image)
+		return (0);
+	game->mlx_data->img_add = mxl_get_data_addr(game->mlx_data->image,
+			&game->mlx_data->bits_pixel, &game->mlx_data->line_len,
+			&game->mlx_data->endian);
+	if (!game->mlx_data->img_add)
+		return (0);
+    return (1);
 }

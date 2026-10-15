@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/13 23:34:48 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/15 18:22:11 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define KEY_D	100
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
+# define PI 3.14159265358979323846
 
 //Error messages
 # define ERR_ARG "Error\n Usage: ./cub3D <map.cub>\n"
@@ -57,8 +60,6 @@
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
-
-# define PI 3.14159265358979323846
 
 typedef enum e_identifier
 {
@@ -238,5 +239,8 @@ int		count_size(char	**tex);
 void	delete_newline(char *line);
 void	replace_spaces(char	*line);
 void	trim_line(char *s);
+
+/* MLX engine set up */
+int	engine_setup(t_game *game);
 
 #endif

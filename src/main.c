@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:47:53 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/13 23:38:06 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/15 18:36:20 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int ac, char **av)
 	if (!parse_file(av[1], &game))
 		return (free_game(&game), EXIT_FAILURE);
 	printf("all ok!");
+    if (!engine_setup(&game))
+        return (free_game(&game), EXIT_FAILURE);
 	// if (start_game(&game))
 	// 	return (free_game(&game), EXIT_FAILURE);
 	// free_game(&game);
