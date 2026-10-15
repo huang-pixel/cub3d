@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/15 18:22:11 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/15 23:39:40 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,9 +128,14 @@ typedef struct s_map
  */
 typedef struct s_texture
 {
-	void	*img;
-	char	*filepath;
-}	t_texture;
+	void	*img_ptr;
+	char	*img_add;
+	int		width;
+	int		height;
+	int		len;
+	int		bpp;
+	int		endian;
+}			t_texture;
 
 /*
  *
@@ -209,6 +214,8 @@ bool	parse_header(char **lines, int map_start, t_game *game);
 
 /* free.c */
 void	free_tab(char **tab);
+void	free_textures(t_game *game);
+void	free_mlx_data(t_game *game);
 void	free_game(t_game *game);
 void	free_map(char **map_data, int height);
 

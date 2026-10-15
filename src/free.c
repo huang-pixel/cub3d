@@ -6,26 +6,25 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 04:34:01 by vino              #+#    #+#             */
-/*   Updated: 2026/09/11 01:16:52 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/15 23:40:26 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	free_ptr(char **ptr)
+/*static void	free_ptr(char **ptr)
 {
 	if (*ptr)
 	{
 		free(*ptr);
 		*ptr = NULL;
 	}
-}
+}*/
 
-void	free_game(t_game *game)
+void	free_textures(t_game *game)
 {
 	int	i;
 
-	i = -1;
 	if (game->map.map_config.no_txture)
 		free(game->map.map_config.no_txture);
 	if (game->map.map_config.so_txture)
@@ -34,6 +33,45 @@ void	free_game(t_game *game)
 		free(game->map.map_config.ea_txture);
 	if (game->map.map_config.we_txture)
 		free(game->map.map_config.we_txture);
+	if (!game->mlx_data)
+		return ;
+	i = 0;
+	while (i < 4)
+	{
+		if (game->tex[i].img_ptr)
+		{
+			mlx_destroy_image(game->mlx_data->mlx_ptr, game->tex[i].img_ptr);
+			game->tex[i].img_ptr = NULL;
+		}
+		i++;
+	}
+}
+
+void	free_mlx_data(t_game *game)
+{
+	if (game->mlx_data)
+	{
+		if (game->mlx_data->image)
+			mlx_destroy_image(game->mlx_data->mlx_ptr, game->mlx_data->image);
+		if (game->mlx_data->window)
+			mlx_destroy_window(game->mlx_data->mlx_ptr, game->mlx_data->window);
+		if (game->mlx_data->mlx_ptr)
+		{
+			mlx_destroy_display(game->mlx_data->mlx_ptr);
+			free(game->mlx_data->mlx_ptr);
+		}
+		free(game->mlx_data);
+		game->mlx_data = NULL;
+	}
+}
+
+void	free_game(t_game *game)
+{
+	int	i;
+
+	if (!game)
+		return ;
+	i = -1;
 	if (game->map.map_data)
 	{
 		while (++i < game->map.map_height)
@@ -41,9 +79,8 @@ void	free_game(t_game *game)
 		free(game->map.map_data);
 		game->map.map_data = NULL;
 	}
-	i = -1;
-	while (++i < 4)
-		free_ptr(&game->tex[i].filepath);
+	free_textures(game);
+	free_mlx_data(game);
 }
 
 void	free_tab(char **tab)
