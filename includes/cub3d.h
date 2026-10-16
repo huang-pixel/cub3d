@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 22:14:49 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 23:21:15 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 # define ERR_MLX_WIN_INIT "Error\n MLX window creation failed!\n"
 # define ERR_MLX_IMG_INIT "Error\n MLX image creation failed!\n"
 # define ERR_MLX_IMG_ADD_INIT "Error\n MLX image addr creation failed!\n"
+# define ERR_TEX_LOAD "Error\n Texture loading failed!\n"
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
@@ -206,6 +207,8 @@ typedef struct s_game
 /* Initilization game */
 void	init_game(t_game *game);
 void	init_mlx_engine(t_game *game);
+int    load_xpm(t_game *game, t_texture *tex, char *path);
+int    init_textures(t_game *game);
 
 /* parsing1.c */
 bool	parse_file(char *file, t_game *game);
