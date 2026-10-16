@@ -6,11 +6,27 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/16 22:12:12 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 22:14:18 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 23:39:19 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void    free_map_data(t_game *game)
+{
+	int	i;
+
+    if (!game || !game->map.map_data)
+        return ;
+    i = 0;
+    while (i < game->map.map_height)
+    {
+        free(game->map.map_data[i]);
+        i++;
+    }
+    free(game->map.map_data);
+    game->map.map_data = NULL;
+}
 
 void	free_mapconfig_path(t_game *game)
 {

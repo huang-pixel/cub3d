@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 04:34:01 by vino              #+#    #+#             */
-/*   Updated: 2026/10/16 22:15:11 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 23:39:48 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,6 @@
 		*ptr = NULL;
 	}
 }*/
-
-void    free_map(t_game *game)
-{
-	int	i;
-
-    if (!game || !game->map.map_data)
-        return ;
-    i = 0;
-    while (i < game->map.map_height)
-    {
-        free(game->map.map_data[i]);
-        i++;
-    }
-    free(game->map.map_data);
-    game->map.map_data = NULL;
-}
 
 void	free_textures(t_game *game)
 {
@@ -80,7 +64,7 @@ void	free_game(t_game *game)
 {
 	if (!game)
 		return ;
-    free_map(game);
+    free_map_data(game);
 	free_textures(game);
 	free_mlx_data(game);
 }
@@ -100,3 +84,15 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
+void   free_map(char **map_data, int height)
+{
+	int	i;
+	
+	i = 0;
+	while (i < height)
+	{
+		free(map_data[i]);
+		i++;
+	}
+	free(map_data);
+}

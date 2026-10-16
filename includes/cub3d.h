@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 23:21:15 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 23:30:02 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ bool	parse_header(char **lines, int map_start, t_game *game);
 
 /* free.c */
 void	free_tab(char **tab);
-void	free_map(t_game *game);
+void	free_map_data(t_game *game);
 void	free_mapconfig_path(t_game *game);
 void	free_textures(t_game *game);
 void	free_mlx_data(t_game *game);
