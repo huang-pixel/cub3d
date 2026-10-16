@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 00:22:55 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 16:51:01 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@
 # define ERR_PLAYER "Error\n Something wrong with the player!\n"
 # define ERR_MAP_CLOSE "Error\n Something wrong with the map!\n"
 # define ERR_MAP_EMPTY_LINE "Error\n Empty lines in the map!\n"
+# define ERR_MLX_ALLO "Error\n MLX data allocation failed!\n"
 # define ERR_MLX_INIT "Error\n MLX initialization failed!\n"
+# define ERR_MLX_WIN_INIT "Error\n MLX window creation failed!\n"
+# define ERR_MLX_IMG_INIT "Error\n MLX image creation failed!\n"
+# define ERR_MLX_IMG_ADD_INIT "Error\n MLX image addr creation failed!\n"
 
 //Memory related error messages
 # define ERR_MALLOC "Error\n Memory allocation failed\n"
@@ -201,7 +205,8 @@ typedef struct s_game
 
 /* Initilization game */
 void	init_game(t_game *game);
-t_mlx_data	*init_mlx_data(void);
+void	init_mlx_engine(t_game *game);
+// t_mlx_data	*init_mlx_data(void);
 
 /* parsing1.c */
 bool	parse_file(char *file, t_game *game);
@@ -247,7 +252,7 @@ void	delete_newline(char *line);
 void	replace_spaces(char	*line);
 void	trim_line(char *s);
 
-/* MLX engine set up */
-int	engine_setup(t_game *game);
+
+
 
 #endif
