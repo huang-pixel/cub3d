@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 04:34:01 by vino              #+#    #+#             */
-/*   Updated: 2026/10/16 00:23:05 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 22:15:11 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void    free_map(t_game *game)
 {
 	int	i;
 
-    if (!game->map.map_data)
+    if (!game || !game->map.map_data)
         return ;
     i = 0;
-    while (game->map.map_data[i])
+    while (i < game->map.map_height)
     {
         free(game->map.map_data[i]);
         i++;
@@ -41,50 +41,43 @@ void	free_textures(t_game *game)
 {
 	int	i;
 
-	if (game->map.map_config.no_txture)
-		free(game->map.map_config.no_txture);
-	if (game->map.map_config.so_txture)
-		free(game->map.map_config.so_txture);
-	if (game->map.map_config.ea_txture)
-		free(game->map.map_config.ea_txture);
-	if (game->map.map_config.we_txture)
-		free(game->map.map_config.we_txture);
-	if (!game->mlx_data)
+    free_mapconfig_path(game);
+    if (!game->mlx_data || !game->mlx_data->mlx_ptr)
 		return ;
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (++i < 4)
 	{
 		if (game->tex[i].img_ptr)
 		{
 			mlx_destroy_image(game->mlx_data->mlx_ptr, game->tex[i].img_ptr);
 			game->tex[i].img_ptr = NULL;
+            game->tex[i].img_add = NULL;
 		}
-		i++;
 	}
 }
 
 void	free_mlx_data(t_game *game)
 {
-	if (game->mlx_data)
+    t_mlx_data  *mlx;
+    
+    if (!game || !game->mlx_data)
+        return ;
+    mlx = game->mlx_data;
+	if (mlx->mlx_ptr)
 	{
-		if (game->mlx_data->image)
-			mlx_destroy_image(game->mlx_data->mlx_ptr, game->mlx_data->image);
-		if (game->mlx_data->window)
-			mlx_destroy_window(game->mlx_data->mlx_ptr, game->mlx_data->window);
-		if (game->mlx_data->mlx_ptr)
-		{
-			mlx_destroy_display(game->mlx_data->mlx_ptr);
-			free(game->mlx_data->mlx_ptr);
-		}
-		free(game->mlx_data);
-		game->mlx_data = NULL;
+		if (mlx->image)
+			mlx_destroy_image(mlx->mlx_ptr, mlx->image);
+		if (mlx->window)
+			mlx_destroy_window(mlx->mlx_ptr, mlx->window);
+		mlx_destroy_display(mlx->mlx_ptr);
+		free(mlx->mlx_ptr);
 	}
+    free(mlx);
+    game->mlx_data = NULL;
 }
 
 void	free_game(t_game *game)
 {
-	int	i;
-
 	if (!game)
 		return ;
     free_map(game);
