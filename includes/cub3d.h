@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 23:44:59 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/18 00:01:33 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define KEY_S	115
 # define KEY_A	97
 # define KEY_D	100
+# define KEY_ESC 65307
+# define KEY_UP 65362
+# define KEY_DOWN 65364
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define WIN_WIDTH 1280
@@ -219,7 +222,7 @@ int		find_map_start(char **lines);
 bool	handle_header_line(char *line, t_game *game, int *found);
 bool	parse_header(char **lines, int map_start, t_game *game);
 
-/* free.c */
+/* free.c free_utils.c */
 void	free_tab(char **tab);
 void    free_map(char **map_data, int height);
 void	free_map_data(t_game *game);
@@ -256,6 +259,16 @@ void	delete_newline(char *line);
 void	replace_spaces(char	*line);
 void	trim_line(char *s);
 
+/* Events handle */
+void	quit_game(t_game *game);
+int	    key_press(int key, t_game *game);
+int	    key_release(int key, t_game *game);
+void	init_event_hook(t_game *game);
+
+/* Player movement */
+int	    check_collision(float x, float y, t_game *g);
+void	move_up_down(t_player *p, t_game *g, float speed);
+void	player_move(t_player *player, t_game *game);
 
 
 
