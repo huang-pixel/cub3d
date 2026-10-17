@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 23:30:02 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/16 23:44:59 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,8 +207,8 @@ typedef struct s_game
 /* Initilization game */
 void	init_game(t_game *game);
 void	init_mlx_engine(t_game *game);
-int    load_xpm(t_game *game, t_texture *tex, char *path);
-int    init_textures(t_game *game);
+int		load_xpm(t_game *game, t_texture *tex, char *path);
+int		init_textures(t_game *game);
 
 /* parsing1.c */
 bool	parse_file(char *file, t_game *game);
@@ -221,6 +221,7 @@ bool	parse_header(char **lines, int map_start, t_game *game);
 
 /* free.c */
 void	free_tab(char **tab);
+void    free_map(char **map_data, int height);
 void	free_map_data(t_game *game);
 void	free_mapconfig_path(t_game *game);
 void	free_textures(t_game *game);
