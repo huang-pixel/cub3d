@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:47:53 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 22:17:06 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/18 23:46:41 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int ac, char **av)
 		return (free_game(&game), EXIT_FAILURE);
 	printf("all ok!");
     init_mlx_engine(&game);
-    
+	init_textures(&game);
+	init_event_hook(&game);
 	return (EXIT_SUCCESS);
 }

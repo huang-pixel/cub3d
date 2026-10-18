@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/18 00:01:33 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/18 23:49:03 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,21 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
+typedef struct s_dda
+{
+	float	ray_dir_x;
+	float	ray_dir_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+}			t_dda;
+
 /*
  *
  * Player struct includes:
@@ -211,7 +226,7 @@ typedef struct s_game
 void	init_game(t_game *game);
 void	init_mlx_engine(t_game *game);
 int		load_xpm(t_game *game, t_texture *tex, char *path);
-int		init_textures(t_game *game);
+void	init_textures(t_game *game);
 
 /* parsing1.c */
 bool	parse_file(char *file, t_game *game);
@@ -267,9 +282,10 @@ void	init_event_hook(t_game *game);
 
 /* Player movement */
 int	    check_collision(float x, float y, t_game *g);
-void	move_up_down(t_player *p, t_game *g, float speed);
 void	player_move(t_player *player, t_game *game);
 
+/* DDA */
+void	init_dda(t_dda *d, t_player *p, float camera_x);
 
 
 #endif

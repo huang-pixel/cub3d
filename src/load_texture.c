@@ -6,17 +6,17 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/16 21:21:05 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 23:23:46 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/18 23:44:37 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static int	init_tex_msg(t_game *game, char *msg)
+static void	init_tex_msg(t_game *game, char *msg)
 {
 	ft_putstr_fd(msg, 2);
 	free_game(game);
-	return (0);
+	exit(EXIT_FAILURE);
 }
 
 int	load_xpm(t_game *game, t_texture *tex, char *path)
@@ -34,15 +34,14 @@ int	load_xpm(t_game *game, t_texture *tex, char *path)
 	return (1);
 }
 
-int	init_textures(t_game *game)
+void	init_textures(t_game *game)
 {
 	if (!load_xpm(game, &game->tex[0], game->map.map_config.no_txture))
-		return (init_tex_msg(game, ERR_TEX_LOAD));
+		init_tex_msg(game, ERR_TEX_LOAD);
 	if (!load_xpm(game, &game->tex[1], game->map.map_config.so_txture))
-		return (init_tex_msg(game, ERR_TEX_LOAD));
+		init_tex_msg(game, ERR_TEX_LOAD);
 	if (!load_xpm(game, &game->tex[2], game->map.map_config.we_txture))
-		return (init_tex_msg(game, ERR_TEX_LOAD));
+		init_tex_msg(game, ERR_TEX_LOAD);
 	if (!load_xpm(game, &game->tex[3], game->map.map_config.ea_txture))
-		return (init_tex_msg(game, ERR_TEX_LOAD));
-	return (1);
+		init_tex_msg(game, ERR_TEX_LOAD);
 }

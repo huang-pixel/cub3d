@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/17 23:23:13 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/18 18:02:15 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/18 18:04:28 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	move_rightside(t_player *p, t_game *g, float speed)
 	}
 }
 
-void	move_up_down(t_player *p, t_game *g, float speed)
+static void	move_up_down(t_player *p, t_game *g, float speed)
 {
 	float	tmp_x;
 	float	tmp_y;
