@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/19 16:54:12 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/20 00:13:58 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,13 @@ typedef struct s_texture
 	int		bpp;
 	int		endian;
 }			t_texture;
+
+typedef struct s_wall
+{
+	int		start;
+	int		end;
+	float	height;
+}			t_wall;
 
 /*
  *

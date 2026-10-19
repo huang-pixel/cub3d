@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/19 18:22:12 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/19 18:22:44 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/20 00:25:47 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,22 @@ static int	ray_tex_side(t_dda *d)
 			return (1);
 		return (0);
 	}
+}
+
+/*
+ *
+ * Based on perpendicular distance
+ * this function turns that distance into wall screen position
+ * 
+ */
+static void	compute_wall_pos(int *start, int *end, float prep_dist,
+			float *height)
+{
+	*height = (int)(WIN_HEIGHT / prep_dist);
+	*start = -(*height) / 2 + WIN_HEIGHT / 2;
+	if (*start < 0)
+		*start = 0;
+	*end = (*height) / 2 + WIN_HEIGHT / 2;
+	if (*end >= WIN_HEIGHT)
+		*end = WIN_HEIGHT - 1;
 }
