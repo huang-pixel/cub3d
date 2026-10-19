@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 20:31:05 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/19 00:52:04 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/19 17:19:25 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,43 @@ static void	init_step_side(t_dda *d, t_player *p)
 		d->step_y = 1;
 		d->side_dist_y = (d->map_y + 1.0f - p->pos.y) * d->delta_dist_y;
 	}
+}
+
+/*
+ *
+ * This function repeatedly moves through the map, one grid boundary at a time, 
+ * until it finds a wall or goes outside the map
+ * 1. Decide which grid boundary comes first
+ * 2. Update its map coordinates
+ * 3. Check whether the ray has left the map
+ * 
+ */
+int	dda_ray_move_check(t_dda *d, t_game *g)
+{
+	int	is_hit;
+	
+	is_hit = 0;
+	while (!is_hit)
+	{
+		if (d->side_dist_x < d->side_dist_y)
+		{
+			d->side_dist_x += d->delta_dist_x;
+			d->map_x += d->step_x;
+			d->side = 0;
+		}
+		else
+		{
+			d->side_dist_y += d->delta_dist_y;
+			d->map_y += d->step_y;
+			d->side = 1;
+		}
+		if (d->map_y < 0 || d->map_y >= g->map.map_height
+			|| d->map_x < 0 || d->map_x >= g->map.map_width)
+			return (0);
+		if (g->map.map_data[d->map_y][d->map_x] == '1')
+			is_hit = 1;
+	}
+	return (1);
 }
 
 void	init_dda(t_dda *d, t_player *p, float camera_x)

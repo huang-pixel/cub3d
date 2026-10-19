@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/18 23:49:03 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/19 16:54:12 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,7 @@ void	player_move(t_player *player, t_game *game);
 
 /* DDA */
 void	init_dda(t_dda *d, t_player *p, float camera_x);
+int		dda_ray_move_check(t_dda *d, t_game *g);
 
 
 #endif
