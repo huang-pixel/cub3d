@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing_prepa.c                                    :+:      :+:    :+:   */
+/*   draw_prepa.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/19 18:22:12 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/20 00:25:47 by hhuang2          ###   ########.fr       */
+/*   Created: 2026/10/20 23:19:02 by hhuang2           #+#    #+#             */
+/*   Updated: 2026/10/20 23:21:24 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,9 @@ static void	compute_wall_pos(int *start, int *end, float prep_dist,
 	*end = (*height) / 2 + WIN_HEIGHT / 2;
 	if (*end >= WIN_HEIGHT)
 		*end = WIN_HEIGHT - 1;
+}
+
+static void	put_one_pixel(t_game *g, int x, int y, int color)
+{
+	
 }
