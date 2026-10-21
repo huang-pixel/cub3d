@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/20 00:13:58 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/22 00:26:33 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct s_wall
 	int		start;
 	int		end;
 	float	height;
+	int		tex_col;
 }			t_wall;
 
 /*
@@ -229,7 +230,7 @@ typedef struct s_game
 	t_color		color;
 }	            t_game;
 
-/* Initilization game */
+/* Initilization game and mlx */
 void	init_game(t_game *game);
 void	init_mlx_engine(t_game *game);
 int		load_xpm(t_game *game, t_texture *tex, char *path);
@@ -288,12 +289,24 @@ int	    key_release(int key, t_game *game);
 void	init_event_hook(t_game *game);
 
 /* Player movement */
-int	    check_collision(float x, float y, t_game *g);
+int		check_collision(float x, float y, t_game *g);
 void	player_move(t_player *player, t_game *game);
 
-/* DDA */
+/* DDA init */
 void	init_dda(t_dda *d, t_player *p, float camera_x);
 int		dda_ray_move_check(t_dda *d, t_game *g);
 
+/* Render preparation utils*/
+float	get_perp_dist(t_dda *d);
+void	compute_wall_pos(int *start, int *end, float prep_dist, float *height);
+
+/* Color filling */
+void	put_one_pixel(t_game *g, int x, int y, int color);
+void	fill_c_f(t_game *g, int col, int start_y, int end_y);
+
+/* Texture rendering */
+int	ray_tex_side(t_dda *d);
+int	get_hit_tex(t_dda *d, t_texture *tex, t_game *g, float prep_dist);
+void	render_wall(t_game *g, t_texture *tex, t_wall *w, int col);
 
 #endif

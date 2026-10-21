@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/18 20:31:05 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/19 17:19:25 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/21 19:02:56 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	init_step_side(t_dda *d, t_player *p)
  * 1. Decide which grid boundary comes first
  * 2. Update its map coordinates
  * 3. Check whether the ray has left the map
+ * 4. side == 0 means ray crossess a vertical grid, 1 a horizontal grid
  * 
  */
 int	dda_ray_move_check(t_dda *d, t_game *g)
