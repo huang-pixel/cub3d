@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 15:35:04 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/22 00:26:33 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/22 22:28:35 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "../libft/libft.h"
-//#include "mlx.h"
+# include "mlx.h"
 # include <math.h>
 # include <stdio.h>
 # include <stdbool.h>
@@ -253,6 +253,7 @@ void	free_mapconfig_path(t_game *game);
 void	free_textures(t_game *game);
 void	free_mlx_data(t_game *game);
 void	free_game(t_game *game);
+int 	quit_game(t_game *game);
 
 /* Parsing Texture */
 bool	is_valid_tex(char **tex);
@@ -283,7 +284,6 @@ void	replace_spaces(char	*line);
 void	trim_line(char *s);
 
 /* Events handle */
-void	quit_game(t_game *game);
 int	    key_press(int key, t_game *game);
 int	    key_release(int key, t_game *game);
 void	init_event_hook(t_game *game);
@@ -305,8 +305,13 @@ void	put_one_pixel(t_game *g, int x, int y, int color);
 void	fill_c_f(t_game *g, int col, int start_y, int end_y);
 
 /* Texture rendering */
-int	ray_tex_side(t_dda *d);
-int	get_hit_tex(t_dda *d, t_texture *tex, t_game *g, float prep_dist);
-void	render_wall(t_game *g, t_texture *tex, t_wall *w, int col);
+int		ray_tex_side(t_dda *d);
+int		get_hit_tex(t_dda *d, t_texture *tex, t_game *g, float prep_dist);
+void	draw_wall_col(t_game *g, t_texture *tex, t_wall *w, int col);
+void	render_single_wall(t_dda *d, t_game *g, int col);
+
+void	render_loop(t_game *g, t_player *p, int col);
+int		render_game(t_game *game);
+
 
 #endif

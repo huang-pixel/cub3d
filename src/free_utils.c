@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/16 22:12:12 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/17 20:43:57 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/22 22:23:11 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ void	free_mapconfig_path(t_game *game)
     game->map.map_config.we_txture = NULL;
 }
 
-void	quit_game(t_game *game)
+int quit_game(t_game *game)
 {
 	free_game(game);
 	exit(EXIT_SUCCESS);
+    return (0);
 }

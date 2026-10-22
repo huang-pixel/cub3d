@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_texture.c                                     :+:      :+:    :+:   */
+/*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/21 20:25:20 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/22 00:26:00 by hhuang2          ###   ########.fr       */
+/*   Created: 2026/10/22 20:27:08 by hhuang2           #+#    #+#             */
+/*   Updated: 2026/10/22 20:34:26 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	get_hit_tex(t_dda *d, t_texture *tex, t_game *g,
 	return (tex_col);
 }
 
-void	render_wall(t_game *g, t_texture *tex, t_wall *w, int col)
+void	draw_wall_col(t_game *g, t_texture *tex, t_wall *w, int col)
 {
 	int		color;
 	int		tex_row;
@@ -88,4 +88,20 @@ void	render_wall(t_game *g, t_texture *tex, t_wall *w, int col)
 		tex_pos += move_step;
 		y++;
 	}
+}
+
+void	render_single_wall(t_dda *d, t_game *g, int col)
+{
+	float		prep_dist;
+	t_wall		w;
+	t_texture	*tex;
+
+	prep_dist = get_perp_dist(d);
+	if (prep_dist <= 0)
+		prep_dist = 0.1f;
+	tex = &g->tex[ray_tex_side(d)];
+	compute_wall_pos(&w.start, &w.end, prep_dist, &w.height);
+	fill_c_f(g, col, w.start, w.end);
+	w.tex_col = get_hit_tex(d, tex, g, prep_dist);
+	draw_wall_col(g, tex, &w, col);
 }
