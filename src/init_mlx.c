@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/16 16:00:45 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/10/16 16:52:11 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/23 20:58:31 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_image(t_game *game)
 			WIN_WIDTH, WIN_HEIGHT);
 	if (!game->mlx_data->image)
 		init_mlx_msg(game, ERR_MLX_IMG_INIT);
-	game->mlx_data->img_add = mxl_get_data_addr(game->mlx_data->image,
+	game->mlx_data->img_add = mlx_get_data_addr(game->mlx_data->image,
 			&game->mlx_data->bits_pixel, &game->mlx_data->line_len,
 			&game->mlx_data->endian);
 	if (!game->mlx_data->img_add)

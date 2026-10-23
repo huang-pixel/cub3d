@@ -2,11 +2,13 @@ NAME=cub3D
 
 CC=cc
 
-CFLAGS=-Wall -Wextra -Werror -g -Iincludes -std=gnu99 -Iminilibx-linux -Ilibft -MMD -MP
+CFLAGS=-Wall -Wextra -Werror -g -Iincludes -std=gnu99 -Iminilibx-linux -Ilibft -MMD -MP 
 
 MANDATORY_SRC = src/main.c src/init.c src/free.c src/parse_color.c src/parse_map1.c \
 				src/parse_map2.c src/parse_map3.c src/parse_texture.c src/parser_utils.c \
-				src/parsing1.c src/parsing2.c
+				src/parsing1.c src/parsing2.c src/free_utils.c src/init_dda.c src/init_mlx.c \
+				src/key_handle.c src/load_texture.c src/player_utils.c src/player.c src/put_color.c \
+				src/render_utils.c src/render_wall.c src/render.c
 MANDATORY_OBJS=$(MANDATORY_SRC:.c=.o)
 
 LIBFT=libft/libft.a
@@ -22,7 +24,7 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(MANDATORY_OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(MANDATORY_OBJS) $(LIBFT) $(MLX) -o $(NAME)
+	$(CC) $(CFLAGS) $(MANDATORY_OBJS) $(LIBFT) $(MLX) -lXext -lX11 -lm -o $(NAME)
 
 $(LIBFT):
 	make -C libft

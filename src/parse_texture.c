@@ -6,11 +6,11 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/11 00:14:53 by hhuang2           #+#    #+#             */
-/*   Updated: 2026/09/29 23:44:38 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/23 20:59:25 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 /*
  *
  * Check whether texture is valid : 
