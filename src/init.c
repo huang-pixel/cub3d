@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 04:03:42 by vino              #+#    #+#             */
-/*   Updated: 2026/10/22 22:30:58 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/24 15:36:44 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_game(t_game *game)
 {
-	ft_bzero(game, sizeof(game));
+	ft_bzero(game, sizeof(*game));
 	game->map.map_config.floor_color = -1;
 	game->map.map_config.ceiling_color = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: hhuang2 <hhuang2@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/14 02:01:30 by vino              #+#    #+#             */
-/*   Updated: 2026/10/23 20:59:06 by hhuang2          ###   ########.fr       */
+/*   Updated: 2026/10/24 16:18:13 by hhuang2          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ static bool	build_rectangular_grid(char **lines, t_game *game)
 {
 	int	i;
 	int	j;
+	int	len;
 
 	i = -1;
 	find_map_height_max_width(lines, game);
@@ -126,13 +127,14 @@ static bool	build_rectangular_grid(char **lines, t_game *game)
 	while (++i < game->map.map_height)
 	{
 		j = -1;
+		len = ft_strlen(lines[i]);
 		game->map.map_data[i] = malloc(game->map.map_width + 1);
 		if (!game->map.map_data[i])
 			return (free_map(game->map.map_data, i),
 				ft_putstr_fd(ERR_MALLOC, 2), false);
 		while (++j < game->map.map_width)
 		{
-			if (lines[i][j] == '\0')
+			if (j >= len)
 				game->map.map_data[i][j] = ' ';
 			else
 				game->map.map_data[i][j] = lines[i][j];
